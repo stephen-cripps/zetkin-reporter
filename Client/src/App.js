@@ -1,7 +1,8 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { getEvents, getParticipants } from './zetkin-service';
-import AttendanceChart from './Charts/attendance';
+import AttendanceTimelineChart from './Charts/attendanceTimeline';
+import MemberAttendanceChart from './Charts/attendanceByMember';
 
 function App() {
 
@@ -36,7 +37,8 @@ function App() {
   return (
     <div className="App">
       <main>
-        <AttendanceChart events={events} />
+        <MemberAttendanceChart events={events} />
+        <AttendanceTimelineChart events={events} />
       </main>
     </div>
   );
@@ -48,7 +50,6 @@ export default App;
 Graphs to build:
  - Events person attended in past x weeks
  - Change in attendance from past x weeks to previous x weeks
- - Participants per event, with category colours
  - Participants per event, split on gender
  - Shows/No Shows per event
 
