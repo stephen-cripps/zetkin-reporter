@@ -1,0 +1,124 @@
+import React, { useMemo } from "react";
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Legend,
+    Cell,
+    LabelList
+} from "recharts";
+import { parseISO, subDays, isAfter, isBefore } from "date-fns";
+
+const stringToColor = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const hue = Math.abs(hash % 360);
+    return `hsl(${hue}, 65%, 50%)`;
+};
+
+const AttendanceTimelineChart = ({ events }) => {
+
+    const data = events.map((e) => ({
+        name: e.title,
+        date: parseISO(e.startTime).getTime(),
+        attendees: e.participants.filter((p) => p.attendedStatus === 0).length,
+        eventType: e.eventType
+    }));
+
+    const typeColorMap = useMemo(() => {
+        const uniqueTypes = [...new Set(data.map((d) => d.eventType))];
+        const map = {};
+        uniqueTypes.forEach((type) => {
+            map[type] = stringToColor(type);
+        });
+        return map;
+    }, [data]);
+
+    // 1 day in ms
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    const minDate = Math.min(...data.map((d) => d.date)) - oneDay;
+    const maxDate = Math.max(...data.map((d) => d.date)) + oneDay;
+
+    const renderLegend = (typeColorMap) => {
+        const items = Object.entries(typeColorMap);
+        return (
+            <div style={{ display: "flex", gap: "15px", marginTop: "20px", flexWrap: "wrap" }}>
+                {items.map(([type, color]) => (
+                    <div key={type} style={{ display: "flex", alignItems: "center", fontSize: "14px" }}>
+                        <div style={{
+                            width: "14px",
+                            height: "14px",
+                            backgroundColor: color,
+                            marginRight: "6px",
+                            borderRadius: "3px"
+                        }}></div>
+                        {type}
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
+
+    return (
+        <div style={{ width: "100%" }}>
+            <h2 style={{ textAlign: "center" }}>Event Attendance Timeline</h2>
+            <BarChart
+                width={window.innerWidth}
+                height={800}
+                data={data}
+                margin={{ top: 100, right: 30, left: 30, bottom: 100 }}
+            >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                    dataKey="date"
+                    type="number"
+                    domain={[minDate, maxDate]}
+                    tickFormatter={(unixTime) =>
+                        new Date(unixTime).toLocaleDateString("en-GB", {
+                            month: "short",
+                            day: "numeric"
+                        })
+                    }
+                    angle={-45}
+                    textAnchor="end"
+                    height={60}
+                    label={{ value: "Date", position: "insideBottom", offset: -5 }}
+                />
+                <YAxis
+                    label={{
+                        value: "Number of Attendees",
+                        angle: -90,
+                        position: "insideLeft"
+                    }}
+                />
+                <Legend content={renderLegend(typeColorMap)} />                <Bar
+                    dataKey="attendees"
+                    name="Attendees"
+                    barSize={8}
+                    isAnimationActive={false}
+                    activeBar={false}
+                >
+                    {data.map((entry, index) => (
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={typeColorMap[entry.eventType] || "#8884d8"}
+                        />
+                    ))}
+                    <LabelList
+                        dataKey="name"
+                        position="top"
+                        style={{ fontSize: 10 }}
+                    />
+                </Bar>
+            </BarChart>
+        </div>
+    );
+};
+
+export default AttendanceTimelineChart;
