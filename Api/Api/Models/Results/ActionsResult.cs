@@ -1,6 +1,6 @@
 ﻿using Api.Models.DTOs;
 
-namespace Api.Models;
+namespace Api.Models.Results;
 
 public record ActionsResult(int Id, string Title, DateTime? StartTime, IEnumerable<Participant> Participants, string EventType);
 

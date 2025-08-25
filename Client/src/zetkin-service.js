@@ -1,9 +1,21 @@
-async function getEvents() {
+// ToDo: Make URL come from env
+// ToDo: Sort out https
+// ToDO: Handle Errors
 
-    // ToDo: Make URL come from env
-    // ToDo: Sort out https
-    // ToDO: Handle Errors
-    const response = await fetch(` http://localhost:5159/api/zetkin/all-actions`, {
+async function getOrgs() {
+    const response = await fetch(`http://localhost:5159/api/zetkin/orgs`, {
+        method: 'GET',
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch organizations: ${response.statusText}`);
+    }
+
+    return response.json();
+}
+
+async function getEvents(orgId) {
+    const response = await fetch(` http://localhost:5159/api/zetkin/all-actions?orgId=${orgId}`, {
         method: 'GET',
     });
 
@@ -14,4 +26,4 @@ async function getEvents() {
     return response.json();
 }
 
-export { getEvents };
+export { getEvents, getOrgs };

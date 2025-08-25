@@ -11,14 +11,11 @@ import {
 } from "recharts";
 import { parseISO, subDays, isAfter, isBefore } from "date-fns";
 
-const stringToColor = (str) => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const hue = Math.abs(hash % 360);
-    return `hsl(${hue}, 65%, 50%)`;
-};
+const COLORS = [
+    "#1f78b4", "#33a02c", "#e31a1c", "#ff7f00",
+    "#6a3d9a", "#b15928", "#a6cee3", "#b2df8a",
+    "#fb9a99", "#fdbf6f", "#cab2d6", "#ffff99"
+];
 
 const AttendanceTimelineChart = ({ events }) => {
 
@@ -30,11 +27,17 @@ const AttendanceTimelineChart = ({ events }) => {
     }));
 
     const typeColorMap = useMemo(() => {
-        const uniqueTypes = [...new Set(data.map((d) => d.eventType))];
         const map = {};
-        uniqueTypes.forEach((type) => {
-            map[type] = stringToColor(type);
+        let colorIndex = 0;
+
+        data.forEach((d) => {
+            const type = d.eventType;
+            if (!map[type]) {
+                map[type] = COLORS[colorIndex % COLORS.length];
+                colorIndex++;
+            }
         });
+
         return map;
     }, [data]);
 
@@ -114,6 +117,22 @@ const AttendanceTimelineChart = ({ events }) => {
                         dataKey="name"
                         position="top"
                         style={{ fontSize: 10 }}
+                        formatter={(value, index) => value}
+                        content={(props) => {
+                            console.log(props);
+                            const { x, y, value, index } = props;
+                            return (
+                                <text
+                                    x={x}
+                                    y={y}
+                                    textAnchor="start"
+                                    fontSize={12}
+                                    transform={`rotate(-45, ${x}, ${y})`}
+                                >
+                                    {value}
+                                </text>
+                            );
+                        }}
                     />
                 </Bar>
             </BarChart>
