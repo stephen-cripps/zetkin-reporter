@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { getEvents, getParticipants } from './zetkin-service';
+import { getEvents } from './zetkin-service';
 import AttendanceTimelineChart from './Charts/attendanceTimeline';
 import MemberAttendanceChart from './Charts/attendanceByMember';
 
@@ -47,8 +47,11 @@ function App() {
 export default App;
 
 /*
+Controls to Add: 
+ - Organisation Drop Down
+ - Time Span Selector
+ 
 Graphs to build:
- - Events person attended in past x weeks
  - Change in attendance from past x weeks to previous x weeks
  - Participants per event, split on gender
  - Shows/No Shows per event

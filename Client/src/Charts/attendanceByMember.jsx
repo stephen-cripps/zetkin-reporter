@@ -54,7 +54,7 @@ const MemberAttendanceChart = ({ events }) => {
 
     return (
         <div style={{ width: "100%" }}>
-            <h2 style={{ textAlign: "center" }}>Participant Attendance</h2>
+            <h2 style={{ textAlign: "center" }}>Participant Engagement</h2>
             <BarChart
                 width={window.innerWidth}
                 height={800}

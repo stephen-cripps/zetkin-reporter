@@ -67,7 +67,7 @@ const AttendanceTimelineChart = ({ events }) => {
 
     return (
         <div style={{ width: "100%" }}>
-            <h2 style={{ textAlign: "center" }}>Event Attendance Timeline</h2>
+            <h2 style={{ textAlign: "center" }}>Event Engagement Timeline</h2>
             <BarChart
                 width={window.innerWidth}
                 height={800}
