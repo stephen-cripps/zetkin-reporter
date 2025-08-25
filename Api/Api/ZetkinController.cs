@@ -42,7 +42,12 @@ public class ZetkinController : ControllerBase
                 .Data
                 .Select(p => new Participant(p));
                 
-            actionResults.Add(new ActionsResult(act.Id, act.Title ?? "Event Not Named", act.StartTime, participants, "ToDo"));
+            actionResults.Add(new ActionsResult(
+                act.Id, 
+                act.Title ?? "Event Not Named",
+                act.StartTime, 
+                participants, 
+                act.Activity?.Title ?? "No Event Type"));
         }
 
         return actionResults;
