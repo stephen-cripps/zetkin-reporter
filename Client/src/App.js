@@ -1,8 +1,12 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { getEvents, getOrgs } from './zetkin-service';
-import AttendanceTimelineChart from './Charts/attendanceTimeline';
-import MemberAttendanceChart from './Charts/attendanceByMember';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import ChartsTab from './Charts/chartsTab';
+import OnionTab from './Onion/onionTab';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 function App() {
   const [orgs, setOrgs] = useState([]);
@@ -57,15 +61,24 @@ function App() {
           </div>
         )}
 
+        {!selectedOrg && <p className='pt-2'>Select an organization to view data.</p>}
+
         {selectedOrg && events.length === 0 && !loading && (
-          <p>No events found for the selected organization.</p>
+          <p className='pt-2'>No events found for the selected organization.</p>
         )}
 
         {selectedOrg && events.length > 0 && !loading && (
-          <>
-            <MemberAttendanceChart events={events} />
-            <AttendanceTimelineChart events={events} />
-          </>
+          <Tabs
+            defaultActiveKey="charts"
+            className="mt-3"
+          >
+            <Tab eventKey="charts" title="Charts">
+              <ChartsTab events={events} />
+            </Tab>
+            <Tab eventKey="onion" title="Onion">
+              <OnionTab events={events} />
+            </Tab>
+          </Tabs>
         )}
       </main>
     </div>
@@ -76,7 +89,6 @@ export default App;
 
 /*
 Controls to Add: 
- - Organisation Drop Down
  - Time Span Selector
 
 Graphs to build:

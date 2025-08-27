@@ -9,15 +9,6 @@ import {
     LabelList
 } from "recharts";
 
-const stringToColor = (str) => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const hue = Math.abs(hash % 360);
-    return `hsl(${hue}, 65%, 50%)`;
-};
-
 const MemberAttendanceChart = ({ events }) => {
     const attendanceMap = {};
 
@@ -56,7 +47,7 @@ const MemberAttendanceChart = ({ events }) => {
         <div style={{ width: "100%" }}>
             <h2 style={{ textAlign: "center" }}>Member Engagement</h2>
             <BarChart
-                width={window.innerWidth}
+                width={window.innerWidth - 100}
                 height={800}
                 data={data}
                 margin={{ top: 100, right: 30, left: 30, bottom: 150 }}

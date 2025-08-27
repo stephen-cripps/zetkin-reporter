@@ -49,13 +49,14 @@ public class ZetkinController : ControllerBase
         
         var filteredActions = actions.Data
             .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-3) && a.StartTime <= DateTime.Now)
-            // .Where(a => a.Title?.Contains("Steve") == true)
+            .Where(a => a.Title?.Contains("Steve") == true)
             .OrderBy(a => a.StartTime);
         
         var actionResults = new List<ActionsResult>();
 
         foreach (var act in filteredActions)
         {
+            // ToDo: Multithreading
             var participants = (await GetParticipants(orgId, act.Id))
                 .Data
                 .Select(p => new Participant(p));

@@ -72,7 +72,7 @@ const AttendanceTimelineChart = ({ events }) => {
         <div style={{ width: "100%" }}>
             <h2 style={{ textAlign: "center" }}>Event Engagement Timeline</h2>
             <BarChart
-                width={window.innerWidth}
+                width={window.innerWidth - 100}
                 height={800}
                 data={data}
                 margin={{ top: 100, right: 30, left: 30, bottom: 100 }}
@@ -119,7 +119,6 @@ const AttendanceTimelineChart = ({ events }) => {
                         style={{ fontSize: 10 }}
                         formatter={(value, index) => value}
                         content={(props) => {
-                            console.log(props);
                             const { x, y, value, index } = props;
                             return (
                                 <text

@@ -1,6 +1,7 @@
 /* Basic page styling */
 .App {
   font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
 /* Dropdown styling */
@@ -19,7 +20,6 @@ select {
   background-size: 16px;
   cursor: pointer;
   transition: border-color 0.2s;
-  margin: 20px
 }
 
 select:focus {
@@ -48,6 +48,48 @@ select:focus {
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
+}
+
+.tabCard {
+  padding: 20px;
+  border-top: none !important;
+  border-radius: 0 !important;
+  width: 100%;
+}
+
+.tierCard {
+  width: 100%;
+  min-height: fit-content;
+  margin-bottom: 1rem;
+  align-items: stretch;
+  padding: 1rem;
+
+  .row {
+    display: flex;
+    align-items: stretch;
+  }
+
+  h2 {
+    color: black;
+  }
+
+  .tierTitle {
+    border-right: solid 0.5px;
+  }
+}
+
+
+.draggablesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.draggablesContainer button {
+  flex: 0 0 auto;
+  border: 1px solid #ccc;
+  /* keep button size natural */
 }
 
 @keyframes spin {
