@@ -44,8 +44,8 @@ public static class MockData
     {
         "Female", "Male", "Male", "Female", "Male",
         "Female", "Male", "Female", "Male", "Female",
-        "Male", "Female", "Male", "Female", "Male",
-        "Female", "Male", "Female", "Male", "Female"
+        "Male", "Female", "Male", "Female", "Unknown",
+        "Female", "Male", "Non-Binary", "Male", "Female"
     };
 
     private static readonly string[] EventTypes = { "Meeting", "Training", "Workshop", "Webinar" };

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import OnionLayer from './onionLayer';
 import { DndContext } from '@dnd-kit/core';
+import Form from 'react-bootstrap/Form';
 
 const OnionTab = ({ events }) => {
   const [peopleMap, setPeopleMap] = useState({});
   const [mostActiveCount, setMostActiveCount] = useState(10);
   const [filteredPeople, setFilteredPeople] = useState([]);
+  const [genderFilter, setGenderFilter] = useState([]);
 
   const tiers = [
     { id: 'leading', title: 'Leading', colour: '#46e3ffff' },
@@ -30,6 +32,7 @@ const OnionTab = ({ events }) => {
             cancelled: 0,
             noShows: 0,
             currentTier: 'not-assigned',
+            gender: p.person.gender,
           };
         }
         switch (p.attendedStatus) {
@@ -51,12 +54,32 @@ const OnionTab = ({ events }) => {
   }, [events]);
 
   useEffect(() => {
-    const filtered = Object.values(peopleMap)
-      .filter((p) => p.attended > 0)
-      .sort((a, b) => b.attended - a.attended)
-      .slice(0, mostActiveCount);
-    setFilteredPeople(filtered);
-  }, [peopleMap, mostActiveCount]);
+    var people = Object.values(peopleMap);
+    var attendanceThreshold =
+      people
+        .sort((a, b) => b.attended - a.attended)
+        .slice(0, mostActiveCount)
+        .pop()?.attended ?? 1;
+
+    people = people
+      .filter((p) => p.attended >= attendanceThreshold)
+      .filter((p) => genderFilter.length === 0 || genderFilter.includes(p.gender));
+
+    var previousRank = 0;
+    var previousCount = 0;
+
+    for (var i = 0; i < people.length; i++) {
+      if (people[i].attended === previousCount) {
+        people[i].rank = previousRank;
+      } else {
+        people[i].rank = i + 1;
+      }
+      previousCount = people[i].attended;
+      previousRank = people[i].rank;
+    }
+
+    setFilteredPeople(people);
+  }, [peopleMap, mostActiveCount, genderFilter]);
 
   const droppables = () =>
     tiers.map((tier) => {
@@ -90,6 +113,27 @@ const OnionTab = ({ events }) => {
         </select>{' '}
         most active members
       </p>
+      <p>Filter by Gender </p>
+      <div key={`inline-checkbox`} className='mb-3'>
+        {['Male', 'Female', 'Non-binary', 'Unknown'].map((gender) => (
+          <Form.Check
+            inline
+            label={gender.charAt(0).toUpperCase() + gender.slice(1)}
+            type='checkbox'
+            id={gender}
+            key={gender}
+            checked={genderFilter.includes(gender)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setGenderFilter((prev) => [...prev, gender]);
+              } else {
+                setGenderFilter((prev) => prev.filter((g) => g !== gender));
+              }
+            }}
+          />
+        ))}
+      </div>
+
       <DndContext onDragEnd={handleDragEnd}>{droppables()}</DndContext>
     </div>
   );
