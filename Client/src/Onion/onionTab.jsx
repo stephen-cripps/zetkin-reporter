@@ -24,6 +24,7 @@ const OnionTab = ({ events }) => {
     events.forEach((e) => {
       e.participants.forEach((p) => {
         const id = p.person.id;
+        console.log(p.person.name, p.person.gender);
         if (!map[id]) {
           map[id] = {
             id,
@@ -115,7 +116,7 @@ const OnionTab = ({ events }) => {
       </p>
       <p>Filter by Gender </p>
       <div key={`inline-checkbox`} className='mb-3'>
-        {['Male', 'Female', 'Non-binary', 'Unknown'].map((gender) => (
+        {['Male', 'Female', 'Non-Binary', 'Unknown'].map((gender) => (
           <Form.Check
             inline
             label={gender.charAt(0).toUpperCase() + gender.slice(1)}

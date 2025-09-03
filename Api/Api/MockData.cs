@@ -42,7 +42,7 @@ public static class MockData
 
     private static readonly string[] Genders =
     {
-        "Female", "Male", "Male", "Female", "Male",
+        "Non-Binary", "Male", "Male", "Female", "Male",
         "Female", "Male", "Female", "Male", "Female",
         "Male", "Female", "Male", "Female", "Unknown",
         "Female", "Male", "Non-Binary", "Male", "Female"
