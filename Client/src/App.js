@@ -13,6 +13,8 @@ function App() {
   const [selectedOrg, setSelectedOrg] = useState(null);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [timeSpan, setTimeSpan] = useState(3);
+  const [activeTab, setActiveTab] = useState('charts');
 
   useEffect(() => {
     async function fetchOrgs() {
@@ -30,24 +32,19 @@ function App() {
 
     async function fetchEvents() {
       setLoading(true);
-      const events = await getEvents(selectedOrg);
+      const events = await getEvents(selectedOrg, timeSpan);
       setEvents(events);
       setLoading(false);
     }
 
     fetchEvents();
-  }, [selectedOrg]);
-
-
+  }, [selectedOrg, timeSpan]);
 
   return (
-    <div className="App">
+    <div className='App'>
       <main>
-        <select
-          onChange={(e) => setSelectedOrg(e.target.value)}
-          value={selectedOrg || ''}
-        >
-          <option value="">Select Organization</option>
+        <select onChange={(e) => setSelectedOrg(e.target.value)} value={selectedOrg || ''}>
+          <option value=''>Select Organization</option>
           {orgs.map((org) => (
             <option key={org.id} value={org.id}>
               {org.title}
@@ -55,9 +52,19 @@ function App() {
           ))}
         </select>
 
+        <p className='pt-2'>
+          Show Data From Past{' '}
+          <select className='form-select-sm' onChange={(e) => setTimeSpan(e.target.value)} value={timeSpan}>
+            <option value={3}>3</option>
+            <option value={6}>6</option>
+            <option value={12}>12</option>
+          </select>{' '}
+          months
+        </p>
+
         {loading && (
-          <div className="spinner-overlay">
-            <div className="spinner"></div>
+          <div className='spinner-overlay'>
+            <div className='spinner'></div>
           </div>
         )}
 
@@ -68,14 +75,11 @@ function App() {
         )}
 
         {selectedOrg && events.length > 0 && !loading && (
-          <Tabs
-            defaultActiveKey="charts"
-            className="mt-3"
-          >
-            <Tab eventKey="charts" title="Charts">
+          <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className='mt-3'>
+            <Tab eventKey='charts' title='Charts'>
               <ChartsTab events={events} />
             </Tab>
-            <Tab eventKey="onion" title="Onion">
+            <Tab eventKey='onion' title='Onion'>
               <OnionTab events={events} />
             </Tab>
           </Tabs>
@@ -88,9 +92,6 @@ function App() {
 export default App;
 
 /*
-Controls to Add: 
- - Time Span Selector
-
 Graphs to build:
  - Change in attendance from past x weeks to previous x weeks
  - Participants per event, split on gender

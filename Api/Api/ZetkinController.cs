@@ -13,19 +13,21 @@ namespace Api;
 public class ZetkinController : ControllerBase
 {
     private readonly HttpClient httpClient;
-    private readonly IConfiguration config;
-    private readonly string cookie;
+    private readonly string? cookie;
 
     public ZetkinController(HttpClient httpClient, IConfiguration config)
     {
         this.httpClient = httpClient;
-        this.config = config;
-        cookie = this.config["cookie"] ?? throw new NullReferenceException("cookie");
+        cookie = config["cookie"] ?? null;
     }
 
     [HttpGet("orgs")]
     public async Task<IEnumerable<OrgsResult>> GetOrgs()
     {
+        // For testing, return mock data
+        if(cookie == null)
+            return MockData.Orgs();
+        
         var orgsRequest = new HttpRequestMessage(
             HttpMethod.Get,
             "https://app.zetkin.org/api/orgs"
@@ -43,12 +45,16 @@ public class ZetkinController : ControllerBase
     
 
     [HttpGet("all-actions")]
-    public async Task<IEnumerable<ActionsResult>> GetAllActions(int orgId)
+    public async Task<IEnumerable<ActionsResult>> GetAllActions(int orgId, int dateRangeMonths = 3)
     {
+        // For testing, return mock data
+        if(cookie == null)
+            return MockData.Actions(orgId, dateRangeMonths);
+        
         var actions = await GetAction(orgId);
         
         var filteredActions = actions.Data
-            .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-3) && a.StartTime <= DateTime.Now)
+            .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-dateRangeMonths) && a.StartTime <= DateTime.Now)
             .Where(a => a.Title?.Contains("Steve") == true)
             .OrderBy(a => a.StartTime);
         

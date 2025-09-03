@@ -6,6 +6,7 @@ public record ActionsResult(int Id, string Title, DateTime? StartTime, IEnumerab
 
 public record Participant
 {
+    // Ctor used when creating from DTO
     public Participant(ParticipantDto participant)
     {
         Person = new Person(
@@ -22,6 +23,13 @@ public record Participant
         else
             AttendedStatus = AttendedStatus.Unknown;
 
+    }
+
+    // Ctor used for mock data
+    public Participant(Person person, AttendedStatus attendedStatus)
+    {
+        Person = person;
+        AttendedStatus = attendedStatus;
     }
 
     public Person Person { get; init; }
