@@ -2,12 +2,22 @@ import { useEffect, useState } from 'react';
 import OnionLayer from './onionLayer';
 import { DndContext } from '@dnd-kit/core';
 import Form from 'react-bootstrap/Form';
-import { useAppContext } from '../GlobalData/AppContext';
+import usePeopleFromEvents from '../GlobalData/usePeopleFromEvents';
 
 const OnionTab = () => {
 
-  const { events } = useAppContext();
-  const [peopleMap, setPeopleMap] = useState({});
+  const basePeople = usePeopleFromEvents();
+
+  // ToDo: Make this persist across basePeople changes
+  const [peopleTiers, setPeopleTiers] = useState(
+    basePeople.reduce((acc, person) => {
+      acc[person.id] = {
+        ...person,
+        currentTier: 'not-assigned',
+      };
+      return acc;
+    }, {})
+  );
   const [mostActiveCount, setMostActiveCount] = useState(10);
   const [filteredPeople, setFilteredPeople] = useState([]);
   const [genderFilter, setGenderFilter] = useState([]);
@@ -21,55 +31,21 @@ const OnionTab = () => {
     { id: 'not-assigned', title: 'Not Assigned', colour: '#e2e2e2ff' },
   ];
 
-  // ToDo: Make the data flow less janky
   useEffect(() => {
-    const map = {};
-    events.forEach((e) => {
-      e.participants.forEach((p) => {
-        const id = p.person.id;
-        console.log(p.person.name, p.person.gender);
-        if (!map[id]) {
-          map[id] = {
-            id,
-            name: p.person.name,
-            attended: 0,
-            cancelled: 0,
-            noShows: 0,
-            currentTier: 'not-assigned',
-            gender: p.person.gender,
-          };
-        }
-        switch (p.attendedStatus) {
-          case 0:
-            map[id].attended += 1;
-            break;
-          case 1:
-            map[id].cancelled += 1;
-            break;
-          case 2:
-            map[id].noShows += 1;
-            break;
-          default:
-            break;
-        }
-      });
-    });
-    setPeopleMap(map);
-  }, [events]);
 
-  useEffect(() => {
-    var people = Object.values(peopleMap);
+    if (!peopleTiers) return;
+
+    var people = Object.values(peopleTiers);
 
     people = people
       .filter((p) => genderFilter.length === 0 || genderFilter.includes(p.gender));
 
+    // We use an attendance threshold to include everyone tied at the cutoff
     var attendanceThreshold =
       people
         .sort((a, b) => b.attended - a.attended)
         .slice(0, mostActiveCount)
         .pop()?.attended ?? 1;
-
-    console.log({ attendanceThreshold });
 
     people = people.filter((p) => p.attended >= attendanceThreshold);
 
@@ -87,7 +63,7 @@ const OnionTab = () => {
     }
 
     setFilteredPeople(people);
-  }, [peopleMap, mostActiveCount, genderFilter]);
+  }, [peopleTiers, mostActiveCount, genderFilter]);
 
   const droppables = () =>
     tiers.map((tier) => {
@@ -99,7 +75,7 @@ const OnionTab = () => {
   function handleDragEnd({ active, over }) {
     if (!over) return;
 
-    setPeopleMap((prev) => ({
+    setPeopleTiers((prev) => ({
       ...prev,
       [active.id]: {
         ...prev[active.id],

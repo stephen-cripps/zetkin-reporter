@@ -7,30 +7,11 @@ import {
     Cell,
     LabelList
 } from "recharts";
-import { useAppContext } from "../GlobalData/AppContext";
+import usePeopleFromEvents from "../GlobalData/usePeopleFromEvents";
 
-const MemberAttendanceChart = () => {
-    const { events } = useAppContext();
-
-    const attendanceMap = {};
-
-    events.forEach((e) => {
-        e.participants.forEach((p) => {
-            if (p.attendedStatus === 0) {
-                const id = p.person.id;
-                if (!attendanceMap[id]) {
-                    attendanceMap[id] = {
-                        id,
-                        name: p.person.name,
-                        count: 0
-                    };
-                }
-                attendanceMap[id].count += 1;
-            }
-        });
-    });
-
-    const data = Object.values(attendanceMap).sort((a, b) => b.count - a.count);
+const AttendanceByMember = () => {
+    const people = usePeopleFromEvents();
+    const data = [...people].sort((a, b) => b.attended - a.attended);
 
     const interpolateColor = (value, min, max) => {
         // Linear interpolation: light blue (#a6cee3) → dark blue (#1f78b4)
@@ -41,7 +22,7 @@ const MemberAttendanceChart = () => {
         return `rgb(${r},${g},${b})`;
     };
 
-    const counts = data.map((d) => d.count);
+    const counts = data.map((d) => d.attended);
     const minCount = Math.min(...counts);
     const maxCount = Math.max(...counts);
 
@@ -72,7 +53,7 @@ const MemberAttendanceChart = () => {
                     }}
                 />
                 <Bar
-                    dataKey="count"
+                    dataKey="attended"
                     barSize={20}
                     isAnimationActive={false}
                     activeBar={false}
@@ -80,10 +61,10 @@ const MemberAttendanceChart = () => {
                     {data.map((entry) => (
                         <Cell
                             key={entry.id}
-                            fill={interpolateColor(entry.count, minCount, maxCount)} />
+                            fill={interpolateColor(entry.attended, minCount, maxCount)} />
                     ))}
                     <LabelList
-                        dataKey="count"
+                        dataKey="attended"
                         position="top"
                         style={{ fontSize: 12 }}
                     />
@@ -93,4 +74,4 @@ const MemberAttendanceChart = () => {
     );
 };
 
-export default MemberAttendanceChart;
+export default AttendanceByMember;

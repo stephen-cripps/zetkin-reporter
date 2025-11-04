@@ -40,7 +40,6 @@ export function AppProvider({ children }) {
         events.forEach((e) => {
             e.participants.forEach((p) => {
                 const id = p.person.id;
-                console.log(p.person.name, p.person.gender);
                 if (!map[id]) {
                     map[id] = {
                         id,
