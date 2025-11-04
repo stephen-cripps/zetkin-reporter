@@ -55,7 +55,6 @@ public class ZetkinController : ControllerBase
         
         var filteredActions = actions.Data
             .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-dateRangeMonths) && a.StartTime <= DateTime.Now)
-            .Where(a => a.Title?.Contains("Steve") == true)
             .OrderBy(a => a.StartTime);
         
         var actionResults = new List<ActionsResult>();

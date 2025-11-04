@@ -56,15 +56,19 @@ const OnionTab = ({ events }) => {
 
   useEffect(() => {
     var people = Object.values(peopleMap);
+
+    people = people
+      .filter((p) => genderFilter.length === 0 || genderFilter.includes(p.gender));
+
     var attendanceThreshold =
       people
         .sort((a, b) => b.attended - a.attended)
         .slice(0, mostActiveCount)
         .pop()?.attended ?? 1;
 
-    people = people
-      .filter((p) => p.attended >= attendanceThreshold)
-      .filter((p) => genderFilter.length === 0 || genderFilter.includes(p.gender));
+    console.log({ attendanceThreshold });
+
+    people = people.filter((p) => p.attended >= attendanceThreshold);
 
     var previousRank = 0;
     var previousCount = 0;
