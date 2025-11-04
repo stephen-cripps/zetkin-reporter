@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import OnionLayer from './onionLayer';
 import { DndContext } from '@dnd-kit/core';
 import Form from 'react-bootstrap/Form';
+import { useAppContext } from '../GlobalData/AppContext';
 
-const OnionTab = ({ events }) => {
+const OnionTab = () => {
+
+  const { events } = useAppContext();
   const [peopleMap, setPeopleMap] = useState({});
   const [mostActiveCount, setMostActiveCount] = useState(10);
   const [filteredPeople, setFilteredPeople] = useState([]);

@@ -1,66 +1,29 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { getEvents, getOrgs } from './zetkin-service';
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import ChartsTab from './Charts/chartsTab';
 import OnionTab from './Onion/onionTab';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import OrgPicker from './GlobalData/orgPicker';
+import TimeSpanPicker from './GlobalData/TimeSpanPicker';
+import { AppProvider, useAppContext } from './GlobalData/AppContext';
 
-function App() {
-  const [orgs, setOrgs] = useState([]);
-  const [selectedOrg, setSelectedOrg] = useState(null);
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [timeSpan, setTimeSpan] = useState(3);
+
+function AppContent() {
   const [activeTab, setActiveTab] = useState('charts');
-
-  useEffect(() => {
-    async function fetchOrgs() {
-      setLoading(true);
-      const orgs = await getOrgs();
-      setOrgs(orgs);
-      setLoading(false);
-    }
-
-    fetchOrgs();
-  }, []);
-
-  useEffect(() => {
-    if (!selectedOrg) return;
-
-    async function fetchEvents() {
-      setLoading(true);
-      const events = await getEvents(selectedOrg, timeSpan);
-      setEvents(events);
-      setLoading(false);
-    }
-
-    fetchEvents();
-  }, [selectedOrg, timeSpan]);
+  const {
+    selectedOrg,
+    events,
+    loading
+  } = useAppContext();
 
   return (
     <div className='App'>
       <main>
-        <select onChange={(e) => setSelectedOrg(e.target.value)} value={selectedOrg || ''}>
-          <option value=''>Select Organization</option>
-          {orgs.map((org) => (
-            <option key={org.id} value={org.id}>
-              {org.title}
-            </option>
-          ))}
-        </select>
-
-        <p className='pt-2'>
-          Show Data From Past{' '}
-          <select className='form-select-sm' onChange={(e) => setTimeSpan(e.target.value)} value={timeSpan}>
-            <option value={3}>3</option>
-            <option value={6}>6</option>
-            <option value={12}>12</option>
-          </select>{' '}
-          months
-        </p>
+        <OrgPicker />
+        <TimeSpanPicker />
 
         {loading && (
           <div className='spinner-overlay'>
@@ -77,15 +40,23 @@ function App() {
         {selectedOrg && events.length > 0 && !loading && (
           <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className='mt-3'>
             <Tab eventKey='charts' title='Charts'>
-              <ChartsTab events={events} />
+              <ChartsTab />
             </Tab>
             <Tab eventKey='onion' title='Onion'>
-              <OnionTab events={events} />
+              <OnionTab />
             </Tab>
           </Tabs>
         )}
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 }
 

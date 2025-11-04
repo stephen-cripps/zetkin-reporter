@@ -1,4 +1,3 @@
-import React, { useMemo } from "react";
 import {
     BarChart,
     Bar,
@@ -8,8 +7,11 @@ import {
     Cell,
     LabelList
 } from "recharts";
+import { useAppContext } from "../GlobalData/AppContext";
 
-const MemberAttendanceChart = ({ events }) => {
+const MemberAttendanceChart = () => {
+    const { events } = useAppContext();
+
     const attendanceMap = {};
 
     events.forEach((e) => {

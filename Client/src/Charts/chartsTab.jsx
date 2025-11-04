@@ -1,12 +1,12 @@
 import AttendanceTimelineChart from "./attendanceTimeline";
 import MemberAttendanceChart from "./attendanceByMember";
 
-const ChartsTab = ({ events }) => {
+const ChartsTab = () => {
     return (
         <div className="card tabCard">
             <h2>Charts</h2>
-            <MemberAttendanceChart events={events} />
-            <AttendanceTimelineChart events={events} />
+            <MemberAttendanceChart />
+            <AttendanceTimelineChart />
         </div>
     );
 };

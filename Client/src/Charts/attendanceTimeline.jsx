@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import {
     BarChart,
     Bar,
@@ -9,7 +9,8 @@ import {
     Cell,
     LabelList
 } from "recharts";
-import { parseISO, subDays, isAfter, isBefore } from "date-fns";
+import { parseISO } from "date-fns";
+import { useAppContext } from "../GlobalData/AppContext";
 
 const COLORS = [
     "#1f78b4", "#33a02c", "#e31a1c", "#ff7f00",
@@ -17,7 +18,8 @@ const COLORS = [
     "#fb9a99", "#fdbf6f", "#cab2d6", "#ffff99"
 ];
 
-const AttendanceTimelineChart = ({ events }) => {
+const AttendanceTimelineChart = () => {
+    const { events } = useAppContext();
 
     const data = events.map((e) => ({
         name: e.title,
@@ -117,9 +119,9 @@ const AttendanceTimelineChart = ({ events }) => {
                         dataKey="name"
                         position="top"
                         style={{ fontSize: 10 }}
-                        formatter={(value, index) => value}
+                        formatter={(value) => value}
                         content={(props) => {
-                            const { x, y, value, index } = props;
+                            const { x, y, value } = props;
                             return (
                                 <text
                                     x={x}
