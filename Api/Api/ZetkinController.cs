@@ -24,7 +24,7 @@ public class ZetkinController : ControllerBase
     {
         // For testing, return mock data
         if(string.IsNullOrWhiteSpace(cookie))
-            return MockData.Orgs();
+            return MockData.Organisations();
         
         var orgsRequest = new HttpRequestMessage(
             HttpMethod.Get,
@@ -59,7 +59,6 @@ public class ZetkinController : ControllerBase
 
         foreach (var act in filteredActions)
         {
-            // ToDo: Multithreading
             var participants = (await GetParticipants(orgId, act.Id, cookie))
                 .Data
                 .Select(p => new Participant(p));

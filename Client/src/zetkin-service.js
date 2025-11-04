@@ -1,7 +1,3 @@
-// ToDo: Make URL come from env
-// ToDo: Sort out https
-// ToDO: Handle Errors
-
 async function getOrgs(cookie) {
   const response = await fetch(`http://localhost:5159/api/zetkin/orgs?cookie=${cookie}`, {
     method: 'GET',

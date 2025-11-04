@@ -21,8 +21,6 @@ function AppContent() {
     cookie
   } = useAppContext();
 
-  console.log("Rendering AppContent with cookie:", cookie);
-
   return (
     <div className='App'>
       <main>
@@ -74,14 +72,21 @@ function App() {
 export default App;
 
 /*
+ToDo: 
+ - Pll processing in backend
+ - List Events Missing Participant Data
+ - Grab backend URL from ENV
+ - Sort out HTTPS
+ - Host & Share (Small scale)
+ - Better Error Handling
+ - Caching 
+ - Save Onion
+ - Some kind of ddos protection
+ - Make the onion less ugly
+ - Persist the onion if AppContext changes (particularly data from past x months)
+
 Graphs to build:
  - Change in attendance from past x weeks to previous x weeks
  - Participants per event, split on gender
  - Shows/No Shows per event
-
-Interactive Onion: 
-  - Get X most active members over the past Y weeks
-  - Allow users to drag them into the Onion categories (default not engaged) Not Engaged, Attending, Engaged, Taking Responsibility, Leading
-  - Show Attendance stats on hover
-  - Can save & load onions (Need to consider how best to load onion and whether to mix in with updated Zetkin data)
 */

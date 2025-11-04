@@ -12,7 +12,6 @@ const OnionLayer = ({ tier, people }) => {
             <div className="card tierCard" style={{ backgroundColor: tier.colour }}>
                 <div className="row align-items-start">
                     <div className="col-2 tierTitle">
-                        {/* ToDo: Deal with these titles not stretching the full height of the container */}
                         <h2>{tier.title}</h2>
                     </div>
                     <div className="col-10 draggablesContainer">

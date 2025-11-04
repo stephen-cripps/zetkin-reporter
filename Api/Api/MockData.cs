@@ -1,66 +1,65 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Api.Models;
-using Api.Models.DTOs;
 using Api.Models.Results;
 
 namespace Api;
 
 public static class MockData
 {
-    public static IEnumerable<OrgsResult> Orgs() => new List<OrgsResult>
+    public static IEnumerable<OrgsResult> Organisations() => new List<OrgsResult>
     {
-        new OrgsResult(1, "Manchester"),
-        new OrgsResult(2, "Bristol"),
-        new OrgsResult(3, "Brighton"),
+        new(1, "Manchester"),
+        new(2, "Bristol"),
+        new(3, "Brighton")
     };
 
     private static readonly string[] ManchesterNames =
-    {
+    [
         "Alice Smith", "Bob Johnson", "Charlie Davis", "Diana Evans", "Ethan Brown",
         "Fiona Wilson", "George Clark", "Hannah Lewis", "Ian Hall", "Jane Young",
         "Kevin King", "Laura Scott", "Mike Adams", "Nina Baker", "Oscar Harris",
         "Paula Ward", "Quinn Turner", "Rachel Hill", "Sam Green", "Tina Moore"
-    };
+    ];
 
     private static readonly string[] BristolNames =
-    {
+    [
         "Adam Wright", "Bethany White", "Carl Thompson", "Deborah Miller", "Edward Harris",
         "Francesca Moore", "Gavin Lee", "Helen Walker", "Ian Parker", "Jessica Hall",
         "Kyle Turner", "Lydia Adams", "Mark Johnson", "Natalie Scott", "Oliver Brown",
         "Patricia Young", "Quentin Lewis", "Rebecca Clark", "Simon King", "Theresa Evans"
-    };
+    ];
 
     private static readonly string[] BrightonNames =
-    {
-        "Aaron Price", "Becky Foster", "Chris Webb", "Donna Hughes", "Eliott Mason",
+    [
+        "Aaron Price", "Becky Foster", "Chris Webb", "Donna Hughes", "Eliot Mason",
         "Faith Ward", "Graham Cole", "Holly Long", "Isaac Reed", "Jade Simmons",
         "Kieran Grant", "Leah Fox", "Matthew Perry", "Naomi Bailey", "Owen Clarke",
         "Phoebe Russell", "Rory Bennett", "Sophie Carter", "Tommy Hayes", "Ursula Knight"
-    };
+    ];
 
 
     private static readonly string[] Genders =
-    {
+    [
         "Non-Binary", "Male", "Male", "Female", "Male",
         "Female", "Male", "Female", "Male", "Female",
         "Male", "Female", "Male", "Female", "Unknown",
         "Female", "Male", "Non-Binary", "Male", "Female"
-    };
+    ];
 
-    private static readonly string[] EventTypes = { "Meeting", "Training", "Workshop", "Webinar" };
+    private static readonly string[] EventTypes = ["Meeting", "Training", "Workshop", "Webinar"];
 
     private static readonly AttendedStatus[] Statuses =
-    {
+    [
         AttendedStatus.ConfirmedAttended,
         AttendedStatus.NoShow,
         AttendedStatus.Cancelled,
         AttendedStatus.Unknown
-    };
+    ];
 
     public static List<ActionsResult> Actions(int orgId, int months)
     {
-        var orgName = Orgs().Single(o => o.Id == orgId).Title;
+        var orgName = Organisations().Single(o => o.Id == orgId).Title;
         
         // Deterministic seed from organisation name
         int seed = GetDeterministicSeed(orgName);

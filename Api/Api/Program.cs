@@ -6,7 +6,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient();
 
 // Allow CORS for all origins (for development purposes)
-// ToDo: Make this stricter?
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>

@@ -8,7 +8,6 @@ const OnionTab = () => {
 
   const basePeople = usePeopleFromEvents();
 
-  // ToDo: Make this persist across basePeople changes
   const [peopleTiers, setPeopleTiers] = useState(
     basePeople.reduce((acc, person) => {
       acc[person.id] = {
