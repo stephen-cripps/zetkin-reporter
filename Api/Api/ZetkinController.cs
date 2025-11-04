@@ -13,19 +13,17 @@ namespace Api;
 public class ZetkinController : ControllerBase
 {
     private readonly HttpClient httpClient;
-    private readonly string? cookie;
 
     public ZetkinController(HttpClient httpClient, IConfiguration config)
     {
         this.httpClient = httpClient;
-        cookie = config["cookie"] ?? null;
     }
 
     [HttpGet("orgs")]
-    public async Task<IEnumerable<OrgsResult>> GetOrgs()
+    public async Task<IEnumerable<OrgsResult>> GetOrgs(string? cookie)
     {
         // For testing, return mock data
-        if(cookie == null)
+        if(string.IsNullOrWhiteSpace(cookie))
             return MockData.Orgs();
         
         var orgsRequest = new HttpRequestMessage(
@@ -45,13 +43,13 @@ public class ZetkinController : ControllerBase
     
 
     [HttpGet("all-actions")]
-    public async Task<IEnumerable<ActionsResult>> GetAllActions(int orgId, int dateRangeMonths = 3)
+    public async Task<IEnumerable<ActionsResult>> GetAllActions(int orgId, string? cookie, int dateRangeMonths = 3)
     {
         // For testing, return mock data
-        if(cookie == null)
+        if(string.IsNullOrWhiteSpace(cookie))
             return MockData.Actions(orgId, dateRangeMonths);
         
-        var actions = await GetAction(orgId);
+        var actions = await GetAction(orgId, cookie);
         
         var filteredActions = actions.Data
             .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-dateRangeMonths) && a.StartTime <= DateTime.Now)
@@ -62,7 +60,7 @@ public class ZetkinController : ControllerBase
         foreach (var act in filteredActions)
         {
             // ToDo: Multithreading
-            var participants = (await GetParticipants(orgId, act.Id))
+            var participants = (await GetParticipants(orgId, act.Id, cookie))
                 .Data
                 .Select(p => new Participant(p));
                 
@@ -77,7 +75,7 @@ public class ZetkinController : ControllerBase
         return actionResults;
     }
 
-    private async Task<ActionsResponse> GetAction(int orgId)
+    private async Task<ActionsResponse> GetAction(int orgId, string cookie)
     {
         var actionsRequest = new HttpRequestMessage(
             HttpMethod.Get,
@@ -92,7 +90,7 @@ public class ZetkinController : ControllerBase
         return JsonSerializer.Deserialize<ActionsResponse>(actionsJson) ?? new ActionsResponse([]);
     }
     
-    private async Task<ParticipantsResponse> GetParticipants(int orgId, int actionId)
+    private async Task<ParticipantsResponse> GetParticipants(int orgId, int actionId, string cookie)
     {
         var participantsRequest = new HttpRequestMessage(
             HttpMethod.Get,

@@ -2,8 +2,8 @@
 // ToDo: Sort out https
 // ToDO: Handle Errors
 
-async function getOrgs() {
-  const response = await fetch(`http://localhost:5159/api/zetkin/orgs`, {
+async function getOrgs(cookie) {
+  const response = await fetch(`http://localhost:5159/api/zetkin/orgs?cookie=${cookie}`, {
     method: 'GET',
   });
 
@@ -14,9 +14,9 @@ async function getOrgs() {
   return response.json();
 }
 
-async function getEvents(orgId, timeSpan) {
+async function getEvents(orgId, timeSpan, cookie) {
   const response = await fetch(
-    ` http://localhost:5159/api/zetkin/all-actions?orgId=${orgId}&dateRangeMonths=${timeSpan}`,
+    ` http://localhost:5159/api/zetkin/all-actions?orgId=${orgId}&dateRangeMonths=${timeSpan}&cookie=${cookie}`,
     {
       method: 'GET',
     }

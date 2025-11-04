@@ -9,6 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import OrgPicker from './GlobalData/orgPicker';
 import TimeSpanPicker from './GlobalData/TimeSpanPicker';
 import { AppProvider, useAppContext } from './GlobalData/AppContext';
+import CookieBox from './GlobalData/cookieBox';
 
 
 function AppContent() {
@@ -16,37 +17,47 @@ function AppContent() {
   const {
     selectedOrg,
     events,
-    loading
+    loading,
+    cookie
   } = useAppContext();
+
+  console.log("Rendering AppContent with cookie:", cookie);
 
   return (
     <div className='App'>
       <main>
-        <OrgPicker />
-        <TimeSpanPicker />
+        <CookieBox />
 
-        {loading && (
-          <div className='spinner-overlay'>
-            <div className='spinner'></div>
-          </div>
-        )}
 
-        {!selectedOrg && <p className='pt-2'>Select an organization to view data.</p>}
+        {cookie !== undefined &&
+          <>
+            <OrgPicker />
+            <TimeSpanPicker />
 
-        {selectedOrg && events.length === 0 && !loading && (
-          <p className='pt-2'>No events found for the selected organization.</p>
-        )}
+            {loading && (
+              <div className='spinner-overlay'>
+                <div className='spinner'></div>
+              </div>
+            )}
 
-        {selectedOrg && events.length > 0 && !loading && (
-          <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className='mt-3'>
-            <Tab eventKey='charts' title='Charts'>
-              <ChartsTab />
-            </Tab>
-            <Tab eventKey='onion' title='Onion'>
-              <OnionTab />
-            </Tab>
-          </Tabs>
-        )}
+            {!selectedOrg && <p className='pt-2'>Select an organization to view data.</p>}
+
+            {selectedOrg && events.length === 0 && !loading && (
+              <p className='pt-2'>No events found for the selected organization.</p>
+            )}
+
+            {selectedOrg && events.length > 0 && !loading && (
+              <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className='mt-3'>
+                <Tab eventKey='charts' title='Charts'>
+                  <ChartsTab />
+                </Tab>
+                <Tab eventKey='onion' title='Onion'>
+                  <OnionTab />
+                </Tab>
+              </Tabs>
+            )}
+          </>
+        }
       </main>
     </div>
   );
