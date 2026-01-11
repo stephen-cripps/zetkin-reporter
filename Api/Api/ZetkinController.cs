@@ -49,32 +49,18 @@ public class ZetkinController : ControllerBase
         if(string.IsNullOrWhiteSpace(cookie))
             return MockData.Actions(orgId, dateRangeMonths);
         
-        var actions = await GetAction(orgId, cookie);
+        var actions = await GetActions(orgId, cookie);
         
         var filteredActions = actions.Data
             .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-dateRangeMonths) && a.StartTime <= DateTime.Now)
             .OrderBy(a => a.StartTime);
         
-        var actionResults = new List<ActionsResult>();
-
-        foreach (var act in filteredActions)
-        {
-            var participants = (await GetParticipants(orgId, act.Id, cookie))
-                .Data
-                .Select(p => new Participant(p));
-                
-            actionResults.Add(new ActionsResult(
-                act.Id, 
-                act.Title ?? "Event Not Named",
-                act.StartTime, 
-                participants, 
-                act.Activity?.Title ?? "No Event Type"));
-        }
-
-        return actionResults;
+        var tasks = filteredActions.Select(action => ProcessAction(action, orgId, cookie));
+        
+        return await Task.WhenAll(tasks); 
     }
 
-    private async Task<ActionsResponse> GetAction(int orgId, string cookie)
+    private async Task<ActionsResponse> GetActions(int orgId, string cookie)
     {
         var actionsRequest = new HttpRequestMessage(
             HttpMethod.Get,
@@ -87,6 +73,20 @@ public class ZetkinController : ControllerBase
         var actionsJson = await actionsResponse.Content.ReadAsStringAsync();
 
         return JsonSerializer.Deserialize<ActionsResponse>(actionsJson) ?? new ActionsResponse([]);
+    }
+
+    private async Task<ActionsResult> ProcessAction(ActionDto action, int orgId, string? cookie)
+    {
+        var participants = (await GetParticipants(orgId, action.Id, cookie))
+            .Data
+            .Select(p => new Participant(p));
+                
+        return new ActionsResult(
+            action.Id, 
+            action.Title ?? "Event Not Named",
+            action.StartTime, 
+            participants, 
+            action.Activity?.Title ?? "No Event Type");
     }
     
     private async Task<ParticipantsResponse> GetParticipants(int orgId, int actionId, string cookie)
