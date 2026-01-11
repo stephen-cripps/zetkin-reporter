@@ -10,6 +10,7 @@ export function AppProvider({ children }) {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const [cookie, setCookie] = useState(undefined);
+    const [activeTab, setActiveTab] = useState('cookie');
 
     // Fetch orgs on mount
     useEffect(() => {
@@ -38,9 +39,17 @@ export function AppProvider({ children }) {
 
     return (
         <AppContext.Provider value={{
-            orgs, selectedOrg, setSelectedOrg,
-            timeSpan, setTimeSpan,
-            events, loading, setCookie, cookie
+            orgs,
+            selectedOrg,
+            setSelectedOrg,
+            timeSpan,
+            setTimeSpan,
+            events,
+            loading,
+            setCookie,
+            cookie,
+            activeTab,
+            setActiveTab
         }}>
             {children}
         </AppContext.Provider>

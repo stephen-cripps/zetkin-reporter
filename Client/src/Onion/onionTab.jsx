@@ -3,20 +3,13 @@ import OnionLayer from './onionLayer';
 import { DndContext } from '@dnd-kit/core';
 import Form from 'react-bootstrap/Form';
 import usePeopleFromEvents from '../GlobalData/usePeopleFromEvents';
+import OrgPicker from '../GlobalData/orgPicker';
 
 const OnionTab = () => {
 
   const basePeople = usePeopleFromEvents();
 
-  const [peopleTiers, setPeopleTiers] = useState(
-    basePeople.reduce((acc, person) => {
-      acc[person.id] = {
-        ...person,
-        currentTier: 'not-assigned',
-      };
-      return acc;
-    }, {})
-  );
+  const [peopleTiers, setPeopleTiers] = useState({});
   const [mostActiveCount, setMostActiveCount] = useState(10);
   const [filteredPeople, setFilteredPeople] = useState([]);
   const [genderFilter, setGenderFilter] = useState([]);
@@ -31,10 +24,25 @@ const OnionTab = () => {
   ];
 
   useEffect(() => {
+    setPeopleTiers(
+      basePeople.reduce((acc, person) => {
+        console.log('Initializing person:', person);
+        acc[person.id] = {
+          ...person,
+          currentTier: filteredPeople.find(p => p.id === person.id)?.currentTier || 'not-assigned',
+        };
+        return acc;
+      }, {})
+    );
+  }, [basePeople]);
+
+  useEffect(() => {
 
     if (!peopleTiers) return;
 
     var people = Object.values(peopleTiers);
+
+    console.log('People before filtering by gender:', people);
 
     people = people
       .filter((p) => genderFilter.length === 0 || genderFilter.includes(p.gender));
@@ -87,6 +95,7 @@ const OnionTab = () => {
     <div className='card tabCard'>
       <h2>Onion</h2>
       <h4>It's flat, like the earth</h4>
+      <OrgPicker />
       <p className='pt-2'>
         Show{' '}
         <select className='form-select-sm' onChange={(e) => setMostActiveCount(e.target.value)} value={mostActiveCount}>
