@@ -55,6 +55,7 @@ export default App;
 /*
 ToDo: 
  - Grab backend URL from ENV
+ - Add Page Title
  - Sort out HTTPS
  - Host & Share (Small scale)
  - Some kind of ddos protection
@@ -65,7 +66,6 @@ ToDo:
  - Persist the onion if AppContext changes (particularly data from past x months)
 
 Graphs to build:
- - Change in attendance from past x weeks to previous x weeks
  - Participants per event, split on gender
  - Shows/No Shows per event
 */

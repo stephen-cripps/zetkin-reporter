@@ -71,7 +71,6 @@ const ChangeInAttendance = () => {
         // Mixed negative and positive values: split around zero
         if (value > 0) {
             const ratio = clamp01(value / (max || 1));
-            console.log(ratio);
             return lerpColor(lightBlue, darkBlue, ratio);
         }
 

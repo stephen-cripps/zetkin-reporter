@@ -1,5 +1,9 @@
+const baseUrl = process.env.REACT_APP_API_URL
+
 async function getOrgs(cookie) {
-  const response = await fetch(`http://localhost:5159/api/zetkin/orgs?cookie=${cookie}`, {
+  const baseUrl = process.env.REACT_APP_API_URL
+
+  const response = await fetch(`${baseUrl}/orgs?cookie=${cookie}`, {
     method: 'GET',
   });
 
@@ -12,7 +16,7 @@ async function getOrgs(cookie) {
 
 async function getEvents(orgId, timeSpan, cookie) {
   const response = await fetch(
-    ` http://localhost:5159/api/zetkin/all-actions?orgId=${orgId}&dateRangeMonths=${timeSpan}&cookie=${cookie}`,
+    `${baseUrl}/all-actions?orgId=${orgId}&dateRangeMonths=${timeSpan}&cookie=${cookie}`,
     {
       method: 'GET',
     }
