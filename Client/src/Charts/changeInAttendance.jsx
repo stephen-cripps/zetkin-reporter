@@ -22,7 +22,6 @@ const ChangeInAttendance = () => {
     const [maxCount, setMaxCount] = useState(0);
 
     useEffect(() => {
-        console.log(people);
         const now = new Date();
         const pastPeriodStart = new Date();
         pastPeriodStart.setMonth(pastPeriodStart.getMonth() - timeSpan / 2);
@@ -50,17 +49,15 @@ const ChangeInAttendance = () => {
 
         changeData = changeData.sort((a, b) => b.change - a.change);
 
-        console.log(changeData);
-
         setData(changeData);
 
-    }, [people]);
+    }, [people, timeSpan]);
 
+    // AI Generated because I'm  lazy. Sorry.
     const interpolateColor = (value, min, max) => {
         // Diverging scale:
         // - Negative values: light red (near 0) -> dark red (most negative)
         // - Positive values: light blue (near 0) -> dark blue (most positive)
-        // - Zero: neutral light gray
         const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
         const lightBlue = [166, 206, 227]; // #a6cee3
@@ -71,29 +68,10 @@ const ChangeInAttendance = () => {
         const lerp = (a, b, t) => Math.round(a + (b - a) * t);
         const lerpColor = (c1, c2, t) => `rgb(${lerp(c1[0], c2[0], t)},${lerp(c1[1], c2[1], t)},${lerp(c1[2], c2[2], t)})`;
 
-        // handle exact zero as a neutral color
-        if (value === 0) {
-            return `rgb(240,240,240)`; // light gray
-        }
-
-        // All non-negative (no negatives present)
-        if (min >= 0) {
-            const denom = (max - min) || 1;
-            const ratio = clamp01((value - min) / denom);
-            return lerpColor(lightBlue, darkBlue, ratio);
-        }
-
-        // All non-positive (no positives present)
-        if (max <= 0) {
-            // Map max (closest to 0) -> lightRed (t=0), min (most negative) -> darkRed (t=1)
-            const denom = (max - min) || 1; // positive because max > min
-            const ratio = clamp01((max - value) / denom);
-            return lerpColor(lightRed, darkRed, ratio);
-        }
-
         // Mixed negative and positive values: split around zero
         if (value > 0) {
             const ratio = clamp01(value / (max || 1));
+            console.log(ratio);
             return lerpColor(lightBlue, darkBlue, ratio);
         }
 
@@ -135,7 +113,6 @@ const ChangeInAttendance = () => {
                     activeBar={false}
                 >
                     {data.map((entry) => {
-                        console.log(entry);
                         return (
                             <Cell
                                 key={entry.id}
