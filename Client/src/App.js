@@ -54,11 +54,11 @@ export default App;
 
 /*
 ToDo: 
- - Grab backend URL from ENV
  - Add Page Title
- - Sort out HTTPS
  - Host & Share (Small scale)
- - Some kind of ddos protection
+    - Dotent Env is prod
+    - Environment variaples
+    - Some kind of ddos protection
  - Better Error Handling
  - Caching 
  - Save Onion
