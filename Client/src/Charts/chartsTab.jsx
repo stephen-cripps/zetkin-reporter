@@ -2,6 +2,7 @@ import AttendanceTimelineChart from "./attendanceTimeline";
 import AttendanceByMember from "./attendanceByMember";
 import EventsMissingData from "./eventsMissingData";
 import OrgPicker from "../GlobalData/orgPicker";
+import ChangeInAttendance from "./changeInAttendance";
 
 const ChartsTab = () => {
     return (
@@ -10,6 +11,7 @@ const ChartsTab = () => {
             <OrgPicker />
             <EventsMissingData />
             <AttendanceByMember />
+            <ChangeInAttendance />
             <AttendanceTimelineChart />
         </div>
     );

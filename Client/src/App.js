@@ -17,8 +17,6 @@ function AppContent() {
     setActiveTab
   } = useAppContext();
 
-  console.log(cookie)
-
   return (
     <div className='App'>
       <main>
@@ -56,7 +54,6 @@ export default App;
 
 /*
 ToDo: 
- - List Events Missing Participant Data
  - Grab backend URL from ENV
  - Sort out HTTPS
  - Host & Share (Small scale)

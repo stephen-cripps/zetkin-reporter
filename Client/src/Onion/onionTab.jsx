@@ -26,7 +26,6 @@ const OnionTab = () => {
   useEffect(() => {
     setPeopleTiers(
       basePeople.reduce((acc, person) => {
-        console.log('Initializing person:', person);
         acc[person.id] = {
           ...person,
           currentTier: filteredPeople.find(p => p.id === person.id)?.currentTier || 'not-assigned',
@@ -41,8 +40,6 @@ const OnionTab = () => {
     if (!peopleTiers) return;
 
     var people = Object.values(peopleTiers);
-
-    console.log('People before filtering by gender:', people);
 
     people = people
       .filter((p) => genderFilter.length === 0 || genderFilter.includes(p.gender));

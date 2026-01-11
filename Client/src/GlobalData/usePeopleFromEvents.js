@@ -17,6 +17,7 @@ export default function usePeopleFromEvents() {
                         cancelled: 0,
                         noShows: 0,
                         gender: p.person.gender,
+                        eventsAttended: [],
                     });
                 }
                 const person = peopleMap.get(id);
@@ -33,6 +34,8 @@ export default function usePeopleFromEvents() {
                     default:
                         break;
                 }
+
+                person.eventsAttended.push(event);
             });
         });
         return Array.from(peopleMap.values());
