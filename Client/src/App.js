@@ -54,11 +54,10 @@ export default App;
 
 /*
 ToDo: 
- - Add Page Title
- - Host & Share (Small scale)
-    - Dotent Env is prod
-    - Environment variaples
-    - Some kind of ddos protection
+ - Fix Serverles Implementation (Dying on CORS issues)
+ - Fix mock data fetch
+ - Publish Lambda to AWS
+ - Publish SPA to github pages
  - Better Error Handling
  - Caching 
  - Save Onion
