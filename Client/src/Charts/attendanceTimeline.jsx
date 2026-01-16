@@ -21,12 +21,15 @@ const COLORS = [
 const AttendanceTimelineChart = () => {
     const { events } = useAppContext();
 
-    const data = events.map((e) => ({
-        name: e.title,
-        date: parseISO(e.startTime).getTime(),
-        attendees: e.participants.filter((p) => p.attendedStatus === 0).length,
-        eventType: e.eventType
-    }));
+    const data = events.map((e) => {
+        console.log(e)
+        return ({
+            name: e.title,
+            date: parseISO(e.startTime).getTime(),
+            attendees: e.participants.filter((p) => p.attendedStatus === 0).length,
+            eventType: e.eventType
+        });
+    });
 
     const typeColorMap = useMemo(() => {
         const map = {};

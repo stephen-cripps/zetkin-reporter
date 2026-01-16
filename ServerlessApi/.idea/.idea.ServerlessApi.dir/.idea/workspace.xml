@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4750cfbc-1e63-4eb5-8b4e-a84a58676b08" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Api/global.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Api.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/MockData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/MockData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Models/AttendedStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/Models/AttendedStatus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Models/DTOs/ActionDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/Models/DTOs/ActionDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Models/DTOs/OrgDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/Models/DTOs/OrgDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Models/DTOs/ParticipantDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/Models/DTOs/ParticipantDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Models/Results/ActionsResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/Models/Results/ActionsResult.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Models/Results/OrgsResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/Models/Results/OrgsResult.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/Properties/launchSettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Api/Api/ZetkinController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Api/ZetkinReporter.Api/ZetkinController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/zetkin-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/zetkin-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerlessAPI.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/omnisharp.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samconfig.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Controllers/ZetkinController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/MockData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Models/AttendedStatus.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Models/DTOs/ActionDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Models/DTOs/OrgDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Models/DTOs/ParticipantDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Models/Results/ActionsResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Models/Results/OrgsResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/ServerlessAPI.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/appsettings.Development.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/appsettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerlessAPI/aws-lambda-tools-defaults.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template.yaml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="38LNrvr2P8F3bYBVQRnGqQN0t1Y" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;aws.toolkit&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4750cfbc-1e63-4eb5-8b4e-a84a58676b08" name="Changes" comment="" />
+      <created>1768575094206</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1768575094206</updated>
+      <workItem from="1768575095520" duration="783000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
