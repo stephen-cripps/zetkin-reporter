@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/zetkin-reporter/static/css/main.45d7bb31.css",
+    "main.js": "/zetkin-reporter/static/js/main.5e6bba6b.js",
+    "static/media/cookie_instructions.png": "/zetkin-reporter/static/media/cookie_instructions.2d9b41165e517fd062fa.png",
+    "index.html": "/zetkin-reporter/index.html",
+    "main.45d7bb31.css.map": "/zetkin-reporter/static/css/main.45d7bb31.css.map",
+    "main.5e6bba6b.js.map": "/zetkin-reporter/static/js/main.5e6bba6b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.45d7bb31.css",
+    "static/js/main.5e6bba6b.js"
+  ]
+}
