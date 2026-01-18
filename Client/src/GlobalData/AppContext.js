@@ -11,6 +11,7 @@ export function AppProvider({ children }) {
     const [loading, setLoading] = useState(false);
     const [cookie, setCookie] = useState(undefined);
     const [activeTab, setActiveTab] = useState('cookie');
+    const [error, setError] = useState(null);
 
     // Fetch orgs on mount
     useEffect(() => {
@@ -18,8 +19,14 @@ export function AppProvider({ children }) {
 
         async function fetchOrgs(cookie) {
             setLoading(true);
-            const orgs = await getOrgs(cookie);
-            setOrgs(orgs);
+            setError(null);
+            try {
+                const orgs = await getOrgs(cookie);
+                setOrgs(orgs);
+            } catch (error) {
+                console.error("Error fetching orgs:", error);
+                setError("Error fetching orgs: " + error.message);
+            }
             setLoading(false);
         }
         fetchOrgs(cookie);
@@ -49,7 +56,8 @@ export function AppProvider({ children }) {
             setCookie,
             cookie,
             activeTab,
-            setActiveTab
+            setActiveTab,
+            error
         }}>
             {children}
         </AppContext.Provider>

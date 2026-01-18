@@ -21,8 +21,14 @@ public class GetActions(IZetkinService zetkinService)
 
         if(string.IsNullOrEmpty(cookie))
             return new OkObjectResult(MockData.Actions(orgId, dateRangeMonths));
-        
-        
-        return new OkObjectResult(zetkinService.GetAllActions(orgId, cookie, dateRangeMonths));
+
+        try
+        {
+            return new OkObjectResult(zetkinService.GetAllActions(orgId, cookie, dateRangeMonths));
+        }
+        catch (HttpRequestException exception)
+        {
+            return new BadRequestObjectResult(exception.Message);
+        }
     }
 }

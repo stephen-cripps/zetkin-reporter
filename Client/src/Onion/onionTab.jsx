@@ -4,6 +4,7 @@ import { DndContext } from '@dnd-kit/core';
 import Form from 'react-bootstrap/Form';
 import usePeopleFromEvents from '../GlobalData/usePeopleFromEvents';
 import OrgPicker from '../GlobalData/orgPicker';
+import ErrorNotification from "../GlobalData/errorNotification";
 
 const OnionTab = () => {
 
@@ -93,6 +94,7 @@ const OnionTab = () => {
       <h2>Onion</h2>
       <h4>It's flat, like the earth</h4>
       <OrgPicker />
+      <ErrorNotification />
       <p className='pt-2'>
         Show{' '}
         <select className='form-select-sm' onChange={(e) => setMostActiveCount(e.target.value)} value={mostActiveCount}>

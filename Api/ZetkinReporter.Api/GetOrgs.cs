@@ -13,9 +13,15 @@ public class GetOrgs(IZetkinService zetkinService)
     {
         var cookie = req.Query["cookie"].ToString();
 
-        // ToDO: fix error handling to return meaningful error messages
-        return string.IsNullOrEmpty(cookie) ? 
-            new OkObjectResult(MockData.Organisations()) : 
-            new OkObjectResult(await zetkinService.GetOrgs(cookie));
+        try
+        {
+            return string.IsNullOrEmpty(cookie) ? 
+                new OkObjectResult(MockData.Organisations()) : 
+                new OkObjectResult(await zetkinService.GetOrgs(cookie));
+        }
+        catch (HttpRequestException exception)
+        {
+            return new BadRequestObjectResult(exception.Message);
+        }
     }
 }
