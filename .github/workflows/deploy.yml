@@ -27,7 +27,7 @@ jobs:
               run: npm run build
 
             - name: Print directory structure
-              run: ls
+              run: ls ./Client/build || echo "Build directory does not exist"
             - name: Verify build output
               run: |
                   if [ ! -d "./Client/build" ]; then
