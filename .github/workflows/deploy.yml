@@ -40,16 +40,8 @@ jobs:
                       echo "Build directory does not exist"
                   fi
 
-            - name: Verify build output
-              run: |
-                  if [ ! -d "./Client/build" ]; then
-                      echo "Build directory not found. Check build logs."
-                      exit 1
-                  fi
-                  ls ./Client/build
-
             - name: Deploy
-              uses: peaceiris/actions-gh-pages@v3
+              uses: peaceiris/actions-gh-pages@v4
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./Client/build
