@@ -9,7 +9,7 @@ namespace ZetkinReporter.Api;
 public class GetActions(IZetkinService zetkinService)
 {
     [Function("GetActions")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
         if(!int.TryParse(req.Query["orgId"].ToString(), out var orgId))
             return new BadRequestObjectResult("orgId is required and must be an integer.");

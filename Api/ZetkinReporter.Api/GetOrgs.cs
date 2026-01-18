@@ -9,7 +9,7 @@ namespace ZetkinReporter.Api;
 public class GetOrgs(IZetkinService zetkinService)
 {
     [Function("GetOrgs")]
-    public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
+    public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
         var cookie = req.Query["cookie"].ToString();
 
