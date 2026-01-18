@@ -43,7 +43,7 @@ const ChangeInAttendance = () => {
                 };
             });
 
-        const counts = data.map((d) => d.change);
+        const counts = changeData.map((d) => d.change);
         setMinCount(Math.min(...counts));
         setMaxCount(Math.max(...counts));
 

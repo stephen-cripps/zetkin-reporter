@@ -34,6 +34,7 @@ const OnionTab = () => {
         return acc;
       }, {})
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [basePeople]);
 
   useEffect(() => {

@@ -1,5 +1,4 @@
 import { useAppContext } from './AppContext';
-import { useContext } from 'react';
 
 const ErrorNotification = () => {
     const { error } = useAppContext();
