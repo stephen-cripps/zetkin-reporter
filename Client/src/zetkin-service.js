@@ -1,7 +1,6 @@
 const baseUrl = process.env.REACT_APP_API_URL
 
 async function getOrgs(cookie) {
-  const baseUrl = process.env.REACT_APP_API_URL
 
   const response = await fetch(`${baseUrl}getorgs?cookie=${cookie}`, {
     method: 'GET',

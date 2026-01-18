@@ -37,8 +37,14 @@ export function AppProvider({ children }) {
         if (!selectedOrg) return;
         async function fetchEvents() {
             setLoading(true);
-            const events = await getEvents(selectedOrg, timeSpan, cookie);
-            setEvents(events);
+            setError(null);
+            try {
+                const events = await getEvents(selectedOrg, timeSpan, cookie);
+                setEvents(events);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+                setError("Error fetching events: " + error.message);
+            }
             setLoading(false);
         }
         fetchEvents();

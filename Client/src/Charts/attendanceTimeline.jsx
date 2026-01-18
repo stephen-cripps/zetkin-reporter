@@ -22,7 +22,6 @@ const AttendanceTimelineChart = () => {
     const { events } = useAppContext();
 
     const data = events.map((e) => {
-        console.log(e)
         return ({
             name: e.title,
             date: parseISO(e.startTime).getTime(),
