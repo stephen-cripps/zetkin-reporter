@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/zetkin-reporter/static/css/main.45d7bb31.css",
-    "main.js": "/zetkin-reporter/static/js/main.f7cc221a.js",
+    "main.js": "/zetkin-reporter/static/js/main.c2314c0c.js",
     "static/media/cookie_instructions.png": "/zetkin-reporter/static/media/cookie_instructions.2d9b41165e517fd062fa.png",
     "index.html": "/zetkin-reporter/index.html",
     "main.45d7bb31.css.map": "/zetkin-reporter/static/css/main.45d7bb31.css.map",
-    "main.f7cc221a.js.map": "/zetkin-reporter/static/js/main.f7cc221a.js.map"
+    "main.c2314c0c.js.map": "/zetkin-reporter/static/js/main.c2314c0c.js.map"
   },
   "entrypoints": [
     "static/css/main.45d7bb31.css",
-    "static/js/main.f7cc221a.js"
+    "static/js/main.c2314c0c.js"
   ]
 }
