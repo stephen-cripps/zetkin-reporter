@@ -26,15 +26,27 @@ jobs:
               working-directory: ./Client
               run: npm run build
 
-            - name: Print directory structure
-              run: ls ./Client/build || echo "Build directory does not exist"
+            - name: Debug paths
+              run: |
+                  echo "Current directory: $(pwd)"
+                  echo "Repository root contents:"
+                  ls -la
+                  echo "Client directory contents:"
+                  ls -la ./Client/
+                  echo "Build directory check:"
+                  if [ -d "./Client/build" ]; then
+                      ls -la ./Client/build
+                  else
+                      echo "Build directory does not exist"
+                  fi
+
             - name: Verify build output
               run: |
                   if [ ! -d "./Client/build" ]; then
                       echo "Build directory not found. Check build logs."
                       exit 1
                   fi
-                  ls -la ./Client/build
+                  ls ./Client/build
 
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
