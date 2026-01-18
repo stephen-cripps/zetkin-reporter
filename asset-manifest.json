@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/zetkin-reporter/Client/static/css/main.45d7bb31.css",
-    "main.js": "/zetkin-reporter/Client/static/js/main.7dc0d4ac.js",
-    "static/media/cookie_instructions.png": "/zetkin-reporter/Client/static/media/cookie_instructions.2d9b41165e517fd062fa.png",
-    "index.html": "/zetkin-reporter/Client/index.html",
-    "main.45d7bb31.css.map": "/zetkin-reporter/Client/static/css/main.45d7bb31.css.map",
-    "main.7dc0d4ac.js.map": "/zetkin-reporter/Client/static/js/main.7dc0d4ac.js.map"
+    "main.css": "/zetkin-reporter/static/css/main.45d7bb31.css",
+    "main.js": "/zetkin-reporter/static/js/main.c2314c0c.js",
+    "static/media/cookie_instructions.png": "/zetkin-reporter/static/media/cookie_instructions.2d9b41165e517fd062fa.png",
+    "index.html": "/zetkin-reporter/index.html",
+    "main.45d7bb31.css.map": "/zetkin-reporter/static/css/main.45d7bb31.css.map",
+    "main.c2314c0c.js.map": "/zetkin-reporter/static/js/main.c2314c0c.js.map"
   },
   "entrypoints": [
     "static/css/main.45d7bb31.css",
-    "static/js/main.7dc0d4ac.js"
+    "static/js/main.c2314c0c.js"
   ]
 }
