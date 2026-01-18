@@ -26,8 +26,6 @@ function AppContent() {
           </div>
         )}
 
-        <p>"Test"</p>
-
         <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className='mt-3'>
           <Tab eventKey='cookie' title='Set Cookie'>
             <CookieTab />
