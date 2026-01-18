@@ -26,6 +26,16 @@ jobs:
               working-directory: ./Client
               run: npm run build
 
+            - name: Print directory structure
+              run: ls
+            - name: Verify build output
+              run: |
+                  if [ ! -d "./Client/build" ]; then
+                      echo "Build directory not found. Check build logs."
+                      exit 1
+                  fi
+                  ls -la ./Client/build
+
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
