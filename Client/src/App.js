@@ -26,6 +26,8 @@ function AppContent() {
           </div>
         )}
 
+        <p>"Test"</p>
+
         <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className='mt-3'>
           <Tab eventKey='cookie' title='Set Cookie'>
             <CookieTab />
@@ -54,11 +56,6 @@ export default App;
 
 /*
 ToDo: 
- - Fix Serverles Implementation (Dying on CORS issues)
- - Fix mock data fetch
- - Publish Lambda to AWS
- - Publish SPA to github pages
- - Better Error Handling
  - Caching 
  - Save Onion
  - Make the onion less ugly
