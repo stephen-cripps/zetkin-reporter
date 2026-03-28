@@ -20,18 +20,18 @@ public static class MockData
         "Fiona Wilson", "George Clark", "Hannah Lewis", "Ian Hall", "Jane Young",
         "Kevin King", "Laura Scott", "Mike Adams", "Nina Baker", "Oscar Harris",
         "Paula Ward", "Quinn Turner", "Rachel Hill", "Sam Green", "Tina Moore",
-        "Uma Parker","Victor Price","Wendy Foster","Xander Reed","Yvonne Riley",
-        "Zachary Coleman","Abby Brooks","Ben Richards","Cara Patterson","Derek Ellis",
-        "Ellie Murray","Frank Hughes","Grace Mason","Harry Webb","Ivy Stone",
-        "Jack Freeman","Kara Butler","Liam Burke","Maya Norris","Noah Payne",
-        "Olivia Burke","Pete Wallace","Queenie Ellis","Ryan Webb","Sophie Hart",
-        "Todd Newman","Ursula Grant","Vince Porter","Willow Fox","Ximena Lowe",
-        "Yasir Khan","Zoey Dean","Aaron Price","Bella Miles","Caleb Brown",
-        "Daisy Cole","Elliot Shaw","Faye Hardy","Gavin Lowe","Heidi Cross",
-        "Isla Barker","Jasper Lane","Keira Frost","Leo Gardner","Mila Clarke",
-        "Nolan Briggs","Opal Reed","Parker Young","Quincy Stone","Remy Marsh",
-        "Stella Lowe","Theo Drake","Una Bishop","Vera Sharp","Wyatt Cole",
-        "Xavia Quinn","Yara Noble","Zane Wilkes","Aiden Holt","Bianca Rowe"
+        "Uma Parker", "Victor Price", "Wendy Foster", "Xander Reed", "Yvonne Riley",
+        "Zachary Coleman", "Abby Brooks", "Ben Richards", "Cara Patterson", "Derek Ellis",
+        "Ellie Murray", "Frank Hughes", "Grace Mason", "Harry Webb", "Ivy Stone",
+        "Jack Freeman", "Kara Butler", "Liam Burke", "Maya Norris", "Noah Payne",
+        "Olivia Burke", "Pete Wallace", "Queenie Ellis", "Ryan Webb", "Sophie Hart",
+        "Todd Newman", "Ursula Grant", "Vince Porter", "Willow Fox", "Ximena Lowe",
+        "Yasir Khan", "Zoey Dean", "Aaron Price", "Bella Miles", "Caleb Brown",
+        "Daisy Cole", "Elliot Shaw", "Faye Hardy", "Gavin Lowe", "Heidi Cross",
+        "Isla Barker", "Jasper Lane", "Keira Frost", "Leo Gardner", "Mila Clarke",
+        "Nolan Briggs", "Opal Reed", "Parker Young", "Quincy Stone", "Remy Marsh",
+        "Stella Lowe", "Theo Drake", "Una Bishop", "Vera Sharp", "Wyatt Cole",
+        "Xavia Quinn", "Yara Noble", "Zane Wilkes", "Aiden Holt", "Bianca Rowe"
     ];
 
     private static readonly string[] BristolNames =
@@ -69,17 +69,17 @@ public static class MockData
     public static List<ActionsResult> Actions(int orgId, int months)
     {
         var orgName = Organisations().Single(o => o.Id == orgId).Title;
-        
+
         // Deterministic seed from organisation name
         int seed = GetDeterministicSeed(orgName);
         var random = new Random(seed);
-        
+
         var names = orgId switch
         {
             1 => ManchesterNames,
             2 => BristolNames,
             3 => BrightonNames,
-            _ => [ ]
+            _ => []
         };
 
         var people = names.Select((name, index) => new Person(index + 1, name, Genders[random.Next(3)])).ToList();
@@ -93,26 +93,26 @@ public static class MockData
         {
             dates.Add(startDate.AddDays(random.Next((now - startDate).Days)));
         }
-        
+
         dates = dates
             .Where(d => d >= now.AddMonths(-months) && d <= now)
             .OrderBy(d => d)
             .ToList();
-        
+
         var events = new List<ActionsResult>();
 
         foreach (var eventDate in dates)
         {
             int participantCount = random.Next(5, 11);
-            
+
             var participantsForEvent = people
                 .OrderBy(_ => random.Next())
                 .Take(participantCount)
                 .Select(p => new Participant(p, Statuses[random.Next(Statuses.Length)]))
                 .ToList();
-            
+
             var eventType = EventTypes[random.Next(EventTypes.Length)];
-            
+
             var eventTypeCount = events.Count(e => e.EventType == eventType);
 
             events.Add(new ActionsResult(
@@ -122,8 +122,30 @@ public static class MockData
                 Participants: participantsForEvent,
                 EventType: eventType
             ));
-        } 
-        
+        }
+
+        events.Add(new ActionsResult(
+            Id: eventCount + 2,
+            Title: $"{orgName} Empty Event",
+            StartTime: now.AddDays(-30),
+            Participants: [],
+            EventType: EventTypes[random.Next(EventTypes.Length)]
+        ));
+
+        var incompleteParticipants = people
+            .OrderBy(_ => random.Next())
+            .Take(5)
+            .Select(p => new Participant(p, AttendedStatus.Unknown))
+            .ToList();
+
+        events.Add(new ActionsResult(
+            Id: eventCount + 3,
+            Title: $"{orgName} Incomplete Event (all statuses are unknown)",
+            StartTime: now.AddDays(-30),
+            Participants: incompleteParticipants,
+            EventType: EventTypes[random.Next(EventTypes.Length)]
+        ));
+
         return events;
     }
 
