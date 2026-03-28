@@ -83,7 +83,7 @@ const ChangeInAttendance = () => {
 
 
     return (
-        <div>
+        <div style={{ width: "100%", border: "1px solid #ccc", borderRadius: "8px", marginBottom: "20px" }}>
             <h2 style={{ textAlign: "center" }}>Change in Attendance between past {timeSpan / 2} months and previous {timeSpan / 2} months</h2>
             <div style={{ overflowX: "auto" }}>
                 <BarChart

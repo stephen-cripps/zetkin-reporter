@@ -28,7 +28,7 @@ const AttendanceByMember = () => {
     const maxCount = Math.max(...counts);
 
     return (
-        <div style={{ width: "100%" }}>
+        <div style={{ width: "100%", border: "1px solid #ccc", borderRadius: "8px", marginBottom: "20px" }}>
             <h2 style={{ textAlign: "center" }}>Member Engagement</h2>
             <div style={{ overflowX: "auto" }}>
                 <BarChart

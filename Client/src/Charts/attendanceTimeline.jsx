@@ -7,10 +7,11 @@ import {
     CartesianGrid,
     Legend,
     Cell,
-    LabelList
+    Tooltip
 } from "recharts";
 import { parseISO } from "date-fns";
 import { useAppContext } from "../GlobalData/AppContext";
+import { Card, CardBody } from "react-bootstrap";
 
 const COLORS = [
     "#1f78b4", "#33a02c", "#e31a1c", "#ff7f00",
@@ -25,7 +26,8 @@ const AttendanceTimelineChart = () => {
         return ({
             name: e.title,
             date: parseISO(e.startTime).getTime(),
-            attendees: e.participants.filter((p) => p.attendedStatus === 0).length,
+            attendees: e.participants.filter((p) => p.attendedStatus === 0),
+            attendeesCount: e.participants.filter((p) => p.attendedStatus === 0).length,
             eventType: e.eventType
         });
     });
@@ -71,6 +73,33 @@ const AttendanceTimelineChart = () => {
         );
     };
 
+    const CustomTooltip = ({ active, payload, label }) => {
+        const isVisible = active && payload && payload.length;
+
+        const ttData = payload[0]?.payload
+
+        return (
+            <div className="custom-tooltip" style={{ visibility: isVisible ? 'visible' : 'hidden' }}>
+                {isVisible && (
+                    <Card >
+                        <CardBody>
+                            <h3>{ttData.name}</h3>
+                            <p>{new Date(ttData.date).toLocaleDateString("en-GB")}</p>
+                            <p>{`${ttData.attendeesCount} confirmed attendees`}</p>
+                            <ul>
+                                {ttData.attendees.map((attendee) => (
+                                    <li key={attendee.person.id}>{attendee.person.name}</li>
+                                ))}
+                            </ul>
+                        </CardBody>
+                    </Card>
+                )}
+            </div>
+        );
+    };
+
+    console.log("Chart data:", data);
+
 
     return (
         <div style={{ width: "100%" }}>
@@ -88,6 +117,7 @@ const AttendanceTimelineChart = () => {
                     domain={[minDate, maxDate]}
                     tickFormatter={(unixTime) =>
                         new Date(unixTime).toLocaleDateString("en-GB", {
+                            year: "2-digit",
                             month: "short",
                             day: "numeric"
                         })
@@ -104,38 +134,23 @@ const AttendanceTimelineChart = () => {
                         position: "insideLeft"
                     }}
                 />
-                <Legend content={renderLegend(typeColorMap)} />                <Bar
-                    dataKey="attendees"
+                <Legend content={renderLegend(typeColorMap)} />
+                <Bar
+                    dataKey="attendeesCount"
                     name="Attendees"
                     barSize={8}
                     isAnimationActive={false}
-                    activeBar={false}
                 >
                     {data.map((entry, index) => (
                         <Cell
                             key={`cell-${index}`}
                             fill={typeColorMap[entry.eventType] || "#8884d8"}
+                            defaultIndex={0}
                         />
                     ))}
-                    <LabelList
-                        dataKey="name"
-                        position="top"
-                        style={{ fontSize: 10 }}
-                        formatter={(value) => value}
-                        content={(props) => {
-                            const { x, y, value } = props;
-                            return (
-                                <text
-                                    x={x}
-                                    y={y}
-                                    textAnchor="start"
-                                    fontSize={12}
-                                    transform={`rotate(-45, ${x}, ${y})`}
-                                >
-                                    {value}
-                                </text>
-                            );
-                        }}
+                    <Tooltip
+                        animationDuration={100}
+                        content={CustomTooltip}
                     />
                 </Bar>
             </BarChart>
