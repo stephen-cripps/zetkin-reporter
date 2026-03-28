@@ -51,15 +51,3 @@ function App() {
 }
 
 export default App;
-
-/*
-ToDo: 
- - Caching 
- - Save Onion
- - Make the onion less ugly
- - Persist the onion if AppContext changes (particularly data from past x months)
-
-Graphs to build:
- - Participants per event, split on gender
- - Shows/No Shows per event
-*/
