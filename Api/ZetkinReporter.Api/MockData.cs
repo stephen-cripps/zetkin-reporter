@@ -19,7 +19,19 @@ public static class MockData
         "Alice Smith", "Bob Johnson", "Charlie Davis", "Diana Evans", "Ethan Brown",
         "Fiona Wilson", "George Clark", "Hannah Lewis", "Ian Hall", "Jane Young",
         "Kevin King", "Laura Scott", "Mike Adams", "Nina Baker", "Oscar Harris",
-        "Paula Ward", "Quinn Turner", "Rachel Hill", "Sam Green", "Tina Moore"
+        "Paula Ward", "Quinn Turner", "Rachel Hill", "Sam Green", "Tina Moore",
+        "Uma Parker","Victor Price","Wendy Foster","Xander Reed","Yvonne Riley",
+        "Zachary Coleman","Abby Brooks","Ben Richards","Cara Patterson","Derek Ellis",
+        "Ellie Murray","Frank Hughes","Grace Mason","Harry Webb","Ivy Stone",
+        "Jack Freeman","Kara Butler","Liam Burke","Maya Norris","Noah Payne",
+        "Olivia Burke","Pete Wallace","Queenie Ellis","Ryan Webb","Sophie Hart",
+        "Todd Newman","Ursula Grant","Vince Porter","Willow Fox","Ximena Lowe",
+        "Yasir Khan","Zoey Dean","Aaron Price","Bella Miles","Caleb Brown",
+        "Daisy Cole","Elliot Shaw","Faye Hardy","Gavin Lowe","Heidi Cross",
+        "Isla Barker","Jasper Lane","Keira Frost","Leo Gardner","Mila Clarke",
+        "Nolan Briggs","Opal Reed","Parker Young","Quincy Stone","Remy Marsh",
+        "Stella Lowe","Theo Drake","Una Bishop","Vera Sharp","Wyatt Cole",
+        "Xavia Quinn","Yara Noble","Zane Wilkes","Aiden Holt","Bianca Rowe"
     ];
 
     private static readonly string[] BristolNames =
@@ -41,10 +53,7 @@ public static class MockData
 
     private static readonly string[] Genders =
     [
-        "Non-Binary", "Male", "Male", "Female", "Male",
-        "Female", "Male", "Female", "Male", "Female",
-        "Male", "Female", "Male", "Female", "Unknown",
-        "Female", "Male", "Non-Binary", "Male", "Female"
+        "Non-Binary", "Male", "Female", "Unknown"
     ];
 
     private static readonly string[] EventTypes = ["Meeting", "Training", "Workshop", "Webinar"];
@@ -73,11 +82,11 @@ public static class MockData
             _ => [ ]
         };
 
-        var people = names.Select((name, index) => new Person(index + 1, name, Genders[index])).ToList();
+        var people = names.Select((name, index) => new Person(index + 1, name, Genders[random.Next(3)])).ToList();
 
         var now = DateTime.UtcNow;
         var startDate = now.AddMonths(-12);
-        const int eventCount = 40;
+        const int eventCount = 200;
         var dates = new List<DateTime>();
 
         for (int i = 0; i < eventCount; i++)

@@ -8,6 +8,7 @@ import {
     LabelList
 } from "recharts";
 import usePeopleFromEvents from "../GlobalData/usePeopleFromEvents";
+import { getWidth } from "../helpers/ChartHelper";
 
 const AttendanceByMember = () => {
     const people = usePeopleFromEvents();
@@ -29,47 +30,49 @@ const AttendanceByMember = () => {
     return (
         <div style={{ width: "100%" }}>
             <h2 style={{ textAlign: "center" }}>Member Engagement</h2>
-            <BarChart
-                width={window.innerWidth - 100}
-                height={800}
-                data={data}
-                margin={{ top: 100, right: 30, left: 30, bottom: 150 }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                    dataKey="name"
-                    angle={-45}
-                    textAnchor="end"
-                    height={120}
-                    interval={0} // show all names, even if many
-                    label={{ value: "Participants", position: "insideBottom", offset: -5 }}
-                />
-                <YAxis
-                    allowDecimals={false}
-                    label={{
-                        value: "Events Attended",
-                        angle: -90,
-                        position: "insideLeft"
-                    }}
-                />
-                <Bar
-                    dataKey="attended"
-                    barSize={20}
-                    isAnimationActive={false}
-                    activeBar={false}
+            <div style={{ overflowX: "auto" }}>
+                <BarChart
+                    width={getWidth(data.length)}
+                    height={800}
+                    data={data}
+                    margin={{ top: 100, right: 30, left: 30, bottom: 150 }}
                 >
-                    {data.map((entry) => (
-                        <Cell
-                            key={entry.id}
-                            fill={interpolateColor(entry.attended, minCount, maxCount)} />
-                    ))}
-                    <LabelList
-                        dataKey="attended"
-                        position="top"
-                        style={{ fontSize: 12 }}
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                        dataKey="name"
+                        angle={-45}
+                        textAnchor="end"
+                        height={120}
+                        interval={0} // show all names, even if many
+                        label={{ value: "Participants", position: "insideBottom", offset: -5 }}
                     />
-                </Bar>
-            </BarChart>
+                    <YAxis
+                        allowDecimals={false}
+                        label={{
+                            value: "Events Attended",
+                            angle: -90,
+                            position: "insideLeft"
+                        }}
+                    />
+                    <Bar
+                        dataKey="attended"
+                        barSize={20}
+                        isAnimationActive={false}
+                        activeBar={false}
+                    >
+                        {data.map((entry) => (
+                            <Cell
+                                key={entry.id}
+                                fill={interpolateColor(entry.attended, minCount, maxCount)} />
+                        ))}
+                        <LabelList
+                            dataKey="attended"
+                            position="top"
+                            style={{ fontSize: 12 }}
+                        />
+                    </Bar>
+                </BarChart>
+            </div>
         </div>
     );
 };

@@ -9,7 +9,7 @@ namespace ZetkinReporter.Api;
 public class GetActions(IZetkinService zetkinService)
 {
     [Function("GetActions")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+    public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
         if(!int.TryParse(req.Query["orgId"].ToString(), out var orgId))
             return new BadRequestObjectResult("orgId is required and must be an integer.");
@@ -21,10 +21,10 @@ public class GetActions(IZetkinService zetkinService)
 
         if(string.IsNullOrEmpty(cookie))
             return new OkObjectResult(MockData.Actions(orgId, dateRangeMonths));
-
+        
         try
         {
-            return new OkObjectResult(zetkinService.GetAllActions(orgId, cookie, dateRangeMonths));
+            return new OkObjectResult(await zetkinService.GetAllActions(orgId, cookie, dateRangeMonths));
         }
         catch (HttpRequestException exception)
         {

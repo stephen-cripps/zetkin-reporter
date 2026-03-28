@@ -12,11 +12,11 @@ public class ZetkinService(HttpClient httpClient) : IZetkinService
             HttpMethod.Get,
             "https://app.zetkin.org/api/orgs"
         );
-        
+
         orgsRequest.Headers.Add("Cookie", cookie);
         var orgsResponse = await httpClient.SendAsync(orgsRequest);
         orgsResponse.EnsureSuccessStatusCode();
-        
+
         var orgsJson = await orgsResponse.Content.ReadAsStringAsync();
         var orgs = JsonSerializer.Deserialize<OrgsResponse>(orgsJson) ?? new OrgsResponse([]);
 
@@ -25,17 +25,20 @@ public class ZetkinService(HttpClient httpClient) : IZetkinService
 
     public async Task<IEnumerable<ActionsResult>> GetAllActions(int orgId, string cookie, int dateRangeMonths)
     {
+        httpClient.Timeout = TimeSpan.FromSeconds(30);
+
         var actions = await GetActions(orgId, cookie);
-        
+
         var filteredActions = actions.Data
-            .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-dateRangeMonths) && a.StartTime <= DateTime.Now)
+            .Where(a => a.StartTime != null && a.StartTime >= DateTime.Now.AddMonths(-dateRangeMonths) &&
+                        a.StartTime <= DateTime.Now)
             .OrderBy(a => a.StartTime);
-        
+
         var tasks = filteredActions.Select(action => ProcessAction(action, orgId, cookie));
-        
-        return await Task.WhenAll(tasks); 
+
+        return await Task.WhenAll(tasks);
     }
-    
+
     private async Task<ActionsResponse> GetActions(int orgId, string cookie)
     {
         var actionsRequest = new HttpRequestMessage(
@@ -47,7 +50,6 @@ public class ZetkinService(HttpClient httpClient) : IZetkinService
         var actionsResponse = await httpClient.SendAsync(actionsRequest);
         actionsResponse.EnsureSuccessStatusCode();
         var actionsJson = await actionsResponse.Content.ReadAsStringAsync();
-
         return JsonSerializer.Deserialize<ActionsResponse>(actionsJson) ?? new ActionsResponse([]);
     }
 
@@ -56,15 +58,15 @@ public class ZetkinService(HttpClient httpClient) : IZetkinService
         var participants = (await GetParticipants(orgId, action.Id, cookie))
             .Data
             .Select(p => new Participant(p));
-                
+
         return new ActionsResult(
-            action.Id, 
+            action.Id,
             action.Title ?? "Event Not Named",
-            action.StartTime, 
-            participants, 
+            action.StartTime,
+            participants,
             action.Activity?.Title ?? "No Event Type");
     }
-    
+
     private async Task<ParticipantsResponse> GetParticipants(int orgId, int actionId, string cookie)
     {
         var participantsRequest = new HttpRequestMessage(
@@ -79,5 +81,4 @@ public class ZetkinService(HttpClient httpClient) : IZetkinService
 
         return JsonSerializer.Deserialize<ParticipantsResponse>(participantsJson) ?? new ParticipantsResponse([]);
     }
-
 }
