@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ZetkinReporter.Api": {
+    "ZetkinReporter.Functions": {
       "commandName": "Project",
       "commandLineArgs": "--port 7140",
       "launchBrowser": false

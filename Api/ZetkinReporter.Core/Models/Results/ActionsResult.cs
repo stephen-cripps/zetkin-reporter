@@ -1,6 +1,6 @@
-﻿using ZetkinReporter.Api.Models.DTOs;
+﻿using ZetkinReporter.Core.Models.DTOs;
 
-namespace ZetkinReporter.Api.Models.Results;
+namespace ZetkinReporter.Core.Models.Results;
 
 public record ActionsResult(int Id, string Title, DateTime? StartTime, IEnumerable<Participant> Participants, string EventType);
 

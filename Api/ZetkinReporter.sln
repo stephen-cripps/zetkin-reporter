@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZetkinReporter.Api", "ZetkinReporter.Api\ZetkinReporter.Api.csproj", "{367C98D9-AA51-4483-941C-8B9413DDB926}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZetkinReporter.Functions", "ZetkinReporter.Functions\ZetkinReporter.Functions.csproj", "{367C98D9-AA51-4483-941C-8B9413DDB926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZetkinReporter.Core", "ZetkinReporter.Core\ZetkinReporter.Core.csproj", "{E3E0C005-3D77-4E24-9DBE-DBC0B0B57250}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZetkinReporter.RestApi", "ZetkinReporter.RestApi\ZetkinReporter.RestApi.csproj", "{275B8793-5198-48F9-95FC-A199EEE2F45B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{367C98D9-AA51-4483-941C-8B9413DDB926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{367C98D9-AA51-4483-941C-8B9413DDB926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{367C98D9-AA51-4483-941C-8B9413DDB926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3E0C005-3D77-4E24-9DBE-DBC0B0B57250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E0C005-3D77-4E24-9DBE-DBC0B0B57250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E0C005-3D77-4E24-9DBE-DBC0B0B57250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E0C005-3D77-4E24-9DBE-DBC0B0B57250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275B8793-5198-48F9-95FC-A199EEE2F45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275B8793-5198-48F9-95FC-A199EEE2F45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275B8793-5198-48F9-95FC-A199EEE2F45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275B8793-5198-48F9-95FC-A199EEE2F45B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

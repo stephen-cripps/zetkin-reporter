@@ -2,9 +2,10 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ZetkinReporter.Api.Services;
+using ZetkinReporter.Core;
+using ZetkinReporter.Core.Services;
 
-namespace ZetkinReporter.Api;
+namespace ZetkinReporter.Functions;
 
 public class GetActions(IZetkinService zetkinService)
 {

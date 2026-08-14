@@ -1,7 +1,7 @@
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ZetkinReporter.Api.Services;
+using ZetkinReporter.Core.Services;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 

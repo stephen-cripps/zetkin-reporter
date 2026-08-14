@@ -1,8 +1,8 @@
-﻿using ZetkinReporter.Api.Models.DTOs;
-using ZetkinReporter.Api.Models.Results;
+﻿using ZetkinReporter.Core.Models.DTOs;
+using ZetkinReporter.Core.Models.Results;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace ZetkinReporter.Api.Services;
+namespace ZetkinReporter.Core.Services;
 
 public class ZetkinService(HttpClient httpClient) : IZetkinService
 {

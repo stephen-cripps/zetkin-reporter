@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using ZetkinReporter.Api.Models;
-using ZetkinReporter.Api.Models.Results;
+using ZetkinReporter.Core.Models;
+using ZetkinReporter.Core.Models.Results;
 
-namespace ZetkinReporter.Api;
+namespace ZetkinReporter.Core;
 
 public static class MockData
 {

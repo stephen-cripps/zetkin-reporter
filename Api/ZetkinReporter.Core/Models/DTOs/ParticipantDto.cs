@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ZetkinReporter.Api.Models.DTOs;
+namespace ZetkinReporter.Core.Models.DTOs;
 
 public record ParticipantsResponse([property: JsonPropertyName("data")] IEnumerable<ParticipantDto> Data);
 

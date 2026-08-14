@@ -19,4 +19,8 @@
         <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ZetkinReporter.Core\ZetkinReporter.Core.csproj" />
+    </ItemGroup>
+
 </Project>

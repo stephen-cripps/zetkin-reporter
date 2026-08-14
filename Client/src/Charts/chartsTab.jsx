@@ -6,6 +6,8 @@ import ChangeInAttendance from "./changeInAttendance";
 import ErrorNotification from "../GlobalData/errorNotification";
 import AttendanceTimelineGrouped from "./GroupedAttendanceTimeline";
 
+
+// ToDo: Why did I comment out attendance timeline? 
 const ChartsTab = () => {
     return (
         <div className="card tabCard">

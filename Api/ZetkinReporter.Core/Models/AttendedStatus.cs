@@ -1,4 +1,4 @@
-﻿namespace ZetkinReporter.Api.Models;
+﻿namespace ZetkinReporter.Core.Models;
 
 public enum AttendedStatus
 {

@@ -1,6 +1,6 @@
-﻿using ZetkinReporter.Api.Models.Results;
+﻿using ZetkinReporter.Core.Models.Results;
 
-namespace ZetkinReporter.Api.Services;
+namespace ZetkinReporter.Core.Services;
 
 public interface IZetkinService
 {
