@@ -10,24 +10,25 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
-        policy.AllowAnyOrigin()
+    options.AddPolicy("Frontend", policy =>
+    {
+        // ToDo: Set via config
+        policy
+            .WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
-            .AllowAnyMethod());
+            .AllowAnyMethod();
+    });
 });
+
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) { app.MapOpenApi(); }
-app.UseHttpsRedirection();
 
-#if DEBUG
-    app.UseCors("AllowAll");
-#else
-app.UseCors(policy => policy.WithOrigins("https://stephen-cripps.github.io/zetkin-reporter/")
-        .AllowAnyHeader()
-        .AllowAnyMethod());
-#endif
+// No need for this as cloudfare will handle the https stuff. Leaving here as a note to self as I'll inevitably forget this. 
+// app.UseHttpsRedirection();
+
+app.UseCors("Frontend");
 
 var zetkinService = app.Services.GetRequiredService<IZetkinService>();
 
