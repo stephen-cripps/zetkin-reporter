@@ -21,7 +21,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment()) { app.MapOpenApi(); }
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+#if DEBUG
+    app.UseCors("AllowAll");
+#else
+app.UseCors(policy => policy.WithOrigins("https://stephen-cripps.github.io/zetkin-reporter/")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+#endif
 
 var zetkinService = app.Services.GetRequiredService<IZetkinService>();
 
