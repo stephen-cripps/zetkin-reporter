@@ -7,6 +7,5 @@ npm run deploy
 the github pages packages will handle everything else. 
 
 # Next Steps
- - Convert the functions back to a normal API and self host witha rate limiter
  - Add some caching
  - Add the option to save/load the onion
