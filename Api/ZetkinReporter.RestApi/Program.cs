@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
     {
         // ToDo: Set via config
         policy
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("https://stephen-cripps.github.io/zetkin-reporter")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

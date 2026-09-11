@@ -9,5 +9,19 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:8080
+    networks:
+      - tunnel-net
 
-# Next STeps: Set up a cloudfare container, so that I can publicly connect to the exposed zetkinApi port
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+    networks:
+      - tunnel-net
+
+networks:
+  tunnel-net:
+    driver: bridge

@@ -6,3 +6,5 @@ bin/
 
 appsettings.Development.json
 appsettings.json
+
+.env
