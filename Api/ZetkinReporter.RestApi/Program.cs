@@ -12,9 +12,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        // ToDo: Set via config
         policy
-            .WithOrigins("https://stephen-cripps.github.io/zetkin-reporter")
+            .WithOrigins("https://stephen-cripps.github.io")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
